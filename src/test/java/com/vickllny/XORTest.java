@@ -35,4 +35,16 @@ public class XORTest {
         System.out.println(arr[0]);
         System.out.println(arr[1]);
     }
+
+    @Test
+    public void test3(){
+        //查找数组中出现奇数次的数
+        int eor = 0;
+        int[] arr = new int[]{ };
+
+        for (final int a : arr) {
+            eor ^= a;
+        }
+        System.out.println(eor);
+    }
 }
