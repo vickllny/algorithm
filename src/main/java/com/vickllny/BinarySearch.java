@@ -151,7 +151,9 @@ public class BinarySearch {
 //        int[] arr = {1, 3, 5, 7, 9};
 //        int[] arr = {10, 8, 6, 4, 2};
 //        int[] arr = {10, 5, 8, 2, 6, 1, 7};
-        int[] arr = {4, 9};
+//        int[] arr = {4, 9};
+        int[] arr = CommonUtils.generateRandomArray(100, 1000);
         System.out.println(localMinimum(arr));
+        System.out.println(arr);
     }
 }

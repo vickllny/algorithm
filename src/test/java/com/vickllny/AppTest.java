@@ -1,38 +1,38 @@
 package com.vickllny;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.junit.Test;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
+public class AppTest {
+
 
     /**
-     * @return the suite of tests being tested
+     * 对数器测试
      */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
+    @Test
+    public void test1(){
+        int testTime = 500000;
+        int maxSize = 10000;
+        int maxValue = 10000;
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
+        boolean success = true;
+        for (int i = 0; i < testTime; i++) {
+            final int[] arr = CommonUtils.generateRandomArray(maxSize, maxValue);
+            final int[] arr1 = CommonUtils.copyArray(arr);
+            final int[] arr2 = CommonUtils.copyArray(arr);
+
+            BubbleSort.sort(arr1);
+            SelectionSort.sort(arr2);
+
+            if(!CommonUtils.isEquals(arr1, arr2)){
+                success = false;
+                break;
+            }
+        }
+        System.out.println(success ? "NewBee!!!" : "Fuck !! Fuck!!!!!!!!!!!");
     }
 }
