@@ -39,12 +39,42 @@ public class XORTest {
     @Test
     public void test3(){
         //查找数组中出现奇数次的数
-        int eor = 0;
-        int[] arr = new int[]{ };
+//        int eor = 0;
+//        int[] arr = new int[]{ };
+//
+//        for (final int a : arr) {
+//            eor ^= a;
+//        }
+//        System.out.println(eor);
 
-        for (final int a : arr) {
-            eor ^= a;
+        int a = 17;
+        int b = a & (~a + 1);
+        System.out.println(b);
+    }
+
+    @Test
+    public void test4(){
+        int[] arr = {1,1,2,2,3,4,4,5,5,6,6,6,6,7,8,8,9,9,9,9,9,9};
+        int eor = 0;
+        for (int i = 0; i < arr.length; i++) {
+            eor ^= arr[i];
         }
-        System.out.println(eor);
+        //取最右的1
+        //     0 1 1 0 1 0 0 0
+        //取反  1 0 0 1 0 1 1 1
+        //+1   1 0 0 1 1 0 0 0
+        //&    1 0 0 1 1 0 0 0
+        //r    0 0 0 0 1 0 0 0
+        int r = eor & (~eor + 1);
+
+        int o = 0;
+
+        for (final int cur : arr) {
+            if((cur & r) == 0){
+                o ^= cur;
+            }
+        }
+
+        System.out.println(o + " " + (o ^ eor));
     }
 }
