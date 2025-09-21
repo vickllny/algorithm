@@ -62,7 +62,7 @@ public class BinarySearch {
                 if(tempR != -1){
                     r = r != -1 ? Math.min(r, tempR) : tempR;
                 }else if(r == -1){
-                    r = arr[begin] < member ? end - 1 : end + 1;
+                    r = arr[begin] < member ? end + 1 : end - 1;
                 }
                 break;
             }else if(begin == end - 1){
@@ -144,6 +144,8 @@ public class BinarySearch {
 //        int[] arr = {7, 7, 7, 7, 7}; int member = 5;
 //        int[] arr = {7, 7, 7, 7, 7}; int member = 9;
 //        int[] arr = {1, 2, 4, 6, 8}; int member = 5;
+        int[] arr = {1, 2, 4, 6, 8, 9}; int member = 7;
+        System.out.println(searchLowerBound(arr, member));
 
 
         //localMinimum
@@ -152,8 +154,8 @@ public class BinarySearch {
 //        int[] arr = {10, 8, 6, 4, 2};
 //        int[] arr = {10, 5, 8, 2, 6, 1, 7};
 //        int[] arr = {4, 9};
-        int[] arr = CommonUtils.generateRandomArray(100, 1000);
-        System.out.println(localMinimum(arr));
+//        int[] arr = CommonUtils.generateRandomArray(100, 1000);
+//        System.out.println(localMinimum(arr));
         System.out.println(arr);
     }
 }
