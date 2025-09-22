@@ -2,6 +2,8 @@ package com.vickllny;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.Arrays;
+
 /**
  * 归并排序
  * T(N) = 2 * T(N/2) + O(N^d)
@@ -81,8 +83,9 @@ public class MergeSort {
     }
 
     public static void main(String[] args) {
-        int[] arr = {17,11,33,69,1,0,-1,32,17,11,33,69};
-        sort(arr);
+//        int[] arr = {17,11,33,69,1,0,-1,32,17,11,33,69};
+        int[] arr = {1,3,4,2,5};
+        System.out.println(smallerNumber(arr));;
         System.out.println(JSONObject.toJSONString(arr));
     }
 }
