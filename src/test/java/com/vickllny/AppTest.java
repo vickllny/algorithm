@@ -36,4 +36,10 @@ public class AppTest {
         }
         System.out.println(success ? "NewBee!!!" : "Fuck !! Fuck!!!!!!!!!!!");
     }
+
+    @Test
+    public void test2(){
+        //精度丢失
+        System.out.println(0.1 + 0.2);
+    }
 }
