@@ -2,7 +2,6 @@ package com.vickllny;
 
 import com.alibaba.fastjson.JSONObject;
 
-import java.util.Arrays;
 
 /**
  * 归并排序
