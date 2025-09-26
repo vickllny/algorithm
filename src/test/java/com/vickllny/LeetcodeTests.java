@@ -2,6 +2,8 @@ package com.vickllny;
 
 import org.junit.Test;
 
+import java.util.*;
+
 /**
  * https://leetcode.cn/studyplan/top-interview-150/
  */
@@ -100,7 +102,8 @@ public class LeetcodeTests {
      */
     @Test
     public void test2(){
-
+        int[] nums = {1,2,2,3};
+        System.out.println(removeDuplicates(nums));
     }
 
     static int removeDuplicates(int[] nums){
@@ -109,22 +112,223 @@ public class LeetcodeTests {
         }
         int i = 0, j = 1;
         while (j < nums.length){
-            //TODO
+            if(nums[i] == nums[j]){
+                j++;
+                continue;
+            }
+            nums[++i] = nums[j++];
+        }
+        return i + 1;
+    }
 
+    /**
+     * 删除有序数组中的重复项 II
+     * https://leetcode.cn/problems/remove-duplicates-from-sorted-array-ii/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test3(){
+        int[] nums = {1,1,1,2,2,3};
+        System.out.println(removeDuplicates1(nums));
+    }
+
+    static int removeDuplicates1(int[] nums){
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+        int i = 0, j = 1;
+        while (j < nums.length){
             if(nums[i] == nums[j]){
                 if(i == 0){
                     i++;
                     j++;
-                }else if(nums[i] == nums[i - 1]){
-                    swap(nums, i++, j++);
-                }else {
-                    i++;
-                    j++;
+                    continue;
                 }
-            }else {
-
+                if(nums[i] == nums[i - 1]){
+                    j++;
+                    continue;
+                }
             }
+            nums[++i] = nums[j++];
         }
         return i + 1;
     }
+
+    /**
+     * 多数元素
+     * https://leetcode.cn/problems/majority-element/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test4(){
+        int[] nums = {3,3,4};
+        System.out.println(majorityElement(nums));
+    }
+
+    static int majorityElement(int[] nums) {
+        Map<Integer, Integer> count = new HashMap<>();
+        for (int num : nums) {
+            if(count.containsKey(num)){
+                count.put(num, count.get(num) + 1);
+            }else {
+                count.put(num, 1);
+            }
+        }
+        Optional<Map.Entry<Integer, Integer>> first = count.entrySet().stream().sorted((entry, entry2) -> entry2.getValue().compareTo(entry.getValue())).findFirst();
+        if(first.isPresent()){
+            return first.get().getKey();
+        }
+        return -1;
+    }
+
+    /**
+     * 轮转数组
+     * https://leetcode.cn/problems/rotate-array/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test5(){
+        int[] nums = {1,2,3};
+        int k = 4;
+        rotate(nums, k);
+    }
+
+    static void rotate(int[] nums, int k) {
+        //1、新数组
+        int[] arr = new int[nums.length];
+        k = k % nums.length;
+        for (int i = 0; i < nums.length; i++) {
+            arr[i] =  nums[(Math.abs(nums.length - k + i)) % nums.length];
+        }
+        System.arraycopy(arr, 0, nums, 0, nums.length);
+        System.out.println("nums = " + Arrays.toString(nums) + ", k = " + k);
+    }
+
+    /**
+     * 买卖股票的最佳时机
+     * https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test6(){
+        int[] nums = {2,4,1};
+        System.out.println(maxProfit(nums));
+    }
+
+    static int maxProfit(int[] prices) {
+        if(prices == null || prices.length < 2){
+            return 0;
+        }
+        int minPrice = prices[0];
+        int val = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if(prices[i] < minPrice){
+                minPrice = prices[i];
+            }else if(prices[i] - minPrice > val){
+                val = prices[i] - minPrice;
+            }
+        }
+        return val;
+    }
+
+    /**
+     * 买卖股票的最佳时机 II
+     * https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test7(){
+        int[] nums = {7,6,4,3,1};
+        System.out.println(maxProfit1(nums));
+    }
+
+    static int maxProfit1(int[] prices) {
+        if(prices == null || prices.length < 2){
+            return 0;
+        }
+        int minPrice = prices[0];
+        int val = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] >= minPrice) {
+                val += prices[i] - minPrice;
+            }
+            minPrice = prices[i];
+        }
+        return val;
+    }
+
+    /**
+     * 跳跃游戏 - 贪心算法
+     * https://leetcode.cn/problems/jump-game/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test8(){
+        int[] nums = {3,2,1,0,4};
+        System.out.println(canJump(nums));
+    }
+
+    static  boolean canJump(int[] nums) {
+        if(nums == null || nums.length == 0){
+            return false;
+        }
+        if(nums.length == 1){
+            return true;
+        }
+        //解法 1
+        int index = 0;
+        while (true){
+            int jump = index + nums[index];
+            if(jump == 0){
+                return false;
+            }
+            int temp = 0;
+            int jumpIndex = -1;
+            for (int i = index + 1; i < jump + 1; i++) {
+                if(i >= nums.length - 1){
+                    return true;
+                }
+                if(i + nums[i] > temp){
+                    temp = i + nums[i];
+                    jumpIndex = i;
+                }
+            }
+            if(jumpIndex == -1){
+                return false;
+            }
+            index = jumpIndex;
+        }
+        //解法 2
+//        int index = 1;
+//        int maxJump = nums[0];
+//        int tempJump;
+//
+//        while (index < nums.length && index <= maxJump){
+//            if((tempJump = (index + nums[index])) > maxJump){
+//                maxJump = tempJump;
+//            }
+//            index++;
+//        }
+//        return index == nums.length;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
