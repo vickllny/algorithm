@@ -262,7 +262,7 @@ public class LeetcodeTests {
         System.out.println(canJump(nums));
     }
 
-    static  boolean canJump(int[] nums) {
+    static boolean canJump(int[] nums) {
         if(nums == null || nums.length == 0){
             return false;
         }
@@ -306,19 +306,90 @@ public class LeetcodeTests {
 //        return index == nums.length;
     }
 
+    /**
+     * 跳跃游戏 II
+     * https://leetcode.cn/problems/jump-game-ii/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test9(){
+        int[] nums = {7,0,9,6,9,6,1,7,9,0,1,2,9,0,3};
+//        int[] nums = {2,3,1,1,4};
+//        int[] nums = {2,3,0,1,4};
+//        int[] nums = {1,2,3};
+        System.out.println(jump(nums));
+    }
+
+    static int jump(int[] nums) {
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+        if(nums.length == 1){
+            return 0;
+        }
+        if(nums[0] >= nums.length){
+            return 1;
+        }
+        int ans = 0, maxJump = 0, end = 0;
+        for (int i = 0; i < nums.length - 1; i++) {
+            maxJump = Math.max(maxJump, i + nums[i]);
+            if(i == end){
+                end = maxJump;
+                ans++;
+            }
+        }
+        return ans;
+    }
 
 
+    /**
+     * H 指数
+     * https://leetcode.cn/problems/h-index/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test10(){
+        int[] nums = {7,0,9,6,9,6,1,7,9,0,1,2,9,0,3};
+        System.out.println(hIndex(nums));
+    }
+
+    static int hIndex(int[] citations) {
+        Arrays.sort(citations);
+        int h = 0, i = citations.length - 1;
+        while (i >= 0 && citations[i] > h){
+            i--;
+            h++;
+        }
+        return h;
+    }
+
+    /**
+     * O(1) 时间插入、删除和获取随机元素
+     * https://leetcode.cn/problems/insert-delete-getrandom-o1/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test11(){
+        final RandomizedSet set = new RandomizedSet();
+        //TODO
+    }
 
 
+    class RandomizedSet {
 
+        public RandomizedSet() {
 
+        }
 
+        public boolean insert(int val) {
 
+        }
 
+        public boolean remove(int val) {
 
+        }
 
+        public int getRandom() {
 
-
+        }
+    }
 
 
 
