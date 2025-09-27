@@ -368,38 +368,141 @@ public class LeetcodeTests {
     @Test
     public void test11(){
         final RandomizedSet set = new RandomizedSet();
-        //TODO
+
+        set.insert(1);
+        set.insert(1);
+        set.insert(2);
+        set.insert(3);
+        set.insert(4);
+        set.insert(5);
+        set.insert(6);
+        System.out.println(set.remove(1));
+        System.out.println(set.remove(7));
+        System.out.println(set.remove(3));
     }
 
 
     class RandomizedSet {
+
+        private List<Integer> values = new ArrayList<>();
+        private Map<Integer, Integer> valueToIndex = new HashMap<>();
 
         public RandomizedSet() {
 
         }
 
         public boolean insert(int val) {
-
+            if(valueToIndex.containsKey(val)){
+                return false;
+            }
+            values.add(val);
+            valueToIndex.put(val, values.size() - 1);
+            return true;
         }
 
         public boolean remove(int val) {
-
+            if(valueToIndex.containsKey(val)){
+                int indexToRemove = valueToIndex.get(val);
+                if(indexToRemove == values.size() - 1 || values.size() == 1){
+                    valueToIndex.remove(val);
+                    values.remove(indexToRemove);
+                    return true;
+                }
+                //最后的值
+                int lastIndex = values.size() - 1;
+                int lastVal = values.get(lastIndex);
+                //交换
+                values.set(indexToRemove, lastVal);
+                values.remove(lastIndex);
+                valueToIndex.remove(val);
+                valueToIndex.put(lastVal, indexToRemove);
+                return true;
+            }
+            return false;
         }
 
         public int getRandom() {
-
+            final Random random = new Random();
+            final int index = random.nextInt(values.size());
+            return values.get(index);
         }
+    }
+
+    /**
+     * 除自身以外数组的乘积
+     * https://leetcode.cn/problems/product-of-array-except-self/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test12(){
+//        int[] nums = {1,2,3,4};
+        int[] nums = {-1,1,0,-3,3};
+        System.out.println(Arrays.toString(productExceptSelf(nums)));
+    }
+
+    static int[] productExceptSelf(int[] nums) {
+        if(nums == null || nums.length == 1){
+            return nums;
+        }
+        int[] res = new int[nums.length];
+        int prefix = 1;
+        for (int i = 0; i < nums.length; i++) {
+            res[i] = prefix;
+            prefix = prefix * nums[i];
+        }
+        int post = 1;
+        for (int i = nums.length - 1; i >= 0; i--) {
+            res[i] = res[i] * post;
+            post = post * nums[i];
+        }
+        return res;
     }
 
 
 
+    /**
+     * 加油站
+     * https://leetcode.cn/problems/gas-station/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test13(){
+//        int[] nums = {1,2,3,4};
+        int[] gas = {2,3,4};
+        int[] cost = {3,4,3};
+        System.out.println(canCompleteCircuit(gas, cost));
+    }
 
+    static int canCompleteCircuit(int[] gas, int[] cost) {
+        int size = gas.length;
+        for (int i = 0; i < size; ) {
+            int j = i, left = 0;
+            while (j < size){
+                int k = (i + j) % size;
+                left += gas[k] - cost[k];
+                if(left < 0 ){
+                    break;
+                }
+                j++;
+            }
+            if(j == size){
+                return i;
+            }
+            i += j + 1;
+        }
+        return -1;
+    }
 
+    /**
+     * 分发糖果
+     * https://leetcode.cn/problems/candy/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test14(){
+        int[] ratings = {1,2,3,4};
+        System.out.println(candy(ratings));
+    }
 
+    static int candy(int[] ratings) {
 
-
-
-
-
+    }
 
 }
