@@ -497,12 +497,108 @@ public class LeetcodeTests {
      */
     @Test
     public void test14(){
-        int[] ratings = {1,2,3,4};
+//        int[] ratings = {1,2,3,4};
+        int[] ratings = {1,0,0,1,2,1,3,2};
+//        2 1 1 2 3 1 3 2
         System.out.println(candy(ratings));
     }
 
     static int candy(int[] ratings) {
+        if(ratings == null || ratings.length == 0){
+            return 0;
+        }
+        if(ratings.length == 1){
+            return 1;
+        }else if(ratings.length == 2){
+            return ratings[0] == ratings[1] ? 2 : 3;
+        }
+
+        // 1.给每个孩子默认分配ratings[i] + 1 个苹果
+        int[] left = new int[ratings.length];
+        int[] right = new int[ratings.length];
+        //左侧
+        for (int i = 1; i < ratings.length; i++) {
+            if(ratings[i] > ratings[i - 1]) left[i] = left[i - 1] + 1;
+        }
+        //右侧
+        for (int i = ratings.length - 2; i >= 0; i--) {
+            if(ratings[i] > ratings[i + 1]) right[i] = right[i + 1] + 1;
+        }
+        int res = 0;
+        for (int i = 0; i < ratings.length; i++) {
+            res += Math.max(left[i], right[i]) + 1;
+        }
+        return res;
+    }
+
+    /**
+     * 接雨水
+     * https://leetcode.cn/problems/trapping-rain-water/description/?envType=study-plan-v2&envId=top-interview-150
+     * 解法：前缀和、后缀和
+     */
+    @Test
+    public void test15(){
+//        int[] ratings = {0,1,0,2,1,0,1,3,2,1,2,1};
+        int[] ratings = {4,2,0,3,2,5};
+        System.out.println(trap(ratings));
+    }
+
+    static int trap(int[] height) {
+        int[] left = new int[height.length];
+        left[0] = height[0];
+        for (int i = 1; i < height.length; i++) {
+            left[i] = Math.max(left[i - 1], height[i]);
+        }
+        int[] right = new int[height.length];
+        right[height.length - 1] = height[height.length - 1];
+        for (int i = height.length - 2; i >= 0; i--) {
+            right[i] = Math.max(right[i + 1], height[i]);
+        }
+
+        int ans = 0;
+        for (int i = 0; i < height.length; i++) {
+            ans += Math.min(left[i], right[i]) - height[i];
+        }
+        return ans;
+    }
+
+    /**
+     * 罗马数字转整数
+     * https://leetcode.cn/problems/roman-to-integer/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test16(){
+        String s = "";
+        System.out.println(romanToInt(s));
+    }
+
+    static int romanToInt(String s) {
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
