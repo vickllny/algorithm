@@ -628,10 +628,88 @@ public class LeetcodeTests {
     }
 
     static String intToRoman(int num) {
-
+        int tempVal = num;
+        StringBuilder s = new StringBuilder();
+        //M
+        int c = tempVal / 1000;
+        tempVal = tempVal % 1000;
+        for(int i = 0; i < c; i++){
+            s.append("M");
+        }
+        //D
+        if(tempVal >= 900){
+            s.append("CM");
+            tempVal = tempVal % 900;
+        }else if(tempVal >= 400 && tempVal < 500){
+            s.append("CD");
+            tempVal = tempVal % 400;
+        }else {
+            c = tempVal / 500;
+            tempVal = tempVal % 500;
+            for(int i = 0; i < c; i++){
+                s.append("D");
+            }
+        }
+        //C
+        c = tempVal / 100;
+        tempVal = tempVal % 100;
+        for(int i = 0; i < c; i++){
+            s.append("C");
+        }
+        //L
+        if(tempVal >= 90){
+            s.append("XC");
+            tempVal = tempVal % 90;
+        }else if(tempVal >= 40 && tempVal < 50){
+            s.append("XL");
+            tempVal = tempVal % 40;
+        }else {
+            c = tempVal / 50;
+            tempVal = tempVal % 50;
+            for(int i = 0; i < c; i++){
+                s.append("L");
+            }
+        }
+        //X
+        c = tempVal / 10;
+        tempVal = tempVal % 10;
+        for(int i = 0; i < c; i++){
+            s.append("X");
+        }
+        //V
+        if(tempVal == 9){
+            s.append("IX");
+            tempVal = tempVal % 9;
+        }else if(tempVal == 4){
+            s.append("IV");
+            tempVal = tempVal % 4;
+        }else {
+            c = tempVal / 5;
+            tempVal = tempVal % 5;
+            for(int i = 0; i < c; i++){
+                s.append("V");
+            }
+        }
+        //I
+        for(int i = 0; i < tempVal; i++){
+            s.append("I");
+        }
+        return s.toString();
     }
 
+    /**
+     * 最后一个单词的长度
+     * https://leetcode.cn/problems/length-of-last-word/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test18(){
+        String val = "Hello World";
+        System.out.println(lengthOfLastWord(val));
+    }
 
+    static int lengthOfLastWord(String s) {
+
+    }
 
 
 
