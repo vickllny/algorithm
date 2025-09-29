@@ -568,16 +568,68 @@ public class LeetcodeTests {
      */
     @Test
     public void test16(){
-        String s = "";
+        String s = "MCMXCIV";
         System.out.println(romanToInt(s));
     }
 
-    static int romanToInt(String s) {
+    static Map<Character, Integer> symbolValues = new HashMap<Character, Integer>() {{
+        put('I', 1);
+        put('V', 5);
+        put('X', 10);
+        put('L', 50);
+        put('C', 100);
+        put('D', 500);
+        put('M', 1000);
+    }};
 
+
+    static int romanToInt(String s) {
+        //IV 4 IX 9
+        //XL 40 XC 90
+        //CD 400 CM 900
+
+//        I             1
+//        V             5
+//        X             10
+//        L             50
+//        C             100
+//        D             500
+//        M             1000
+        int ans = 0;
+        final char[] charArray = s.toCharArray();
+        for (int i = 0; i < charArray.length; i++) {
+            char c =  charArray[i];
+            final Integer val = symbolValues.get(c);
+            if(val == null){
+                continue;
+            }
+            if(i < charArray.length - 1){
+                final Integer val2 = symbolValues.get(charArray[i + 1]);
+                if(val < val2){
+                    ans -= val;
+                }else {
+                    ans += val;
+                }
+                continue;
+            }
+            ans += val;
+        }
+        return ans;
     }
 
+    /**
+     * 整数转罗马数字
+     * https://leetcode.cn/problems/integer-to-roman/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test17(){
+        int val = 500;
+        System.out.println(intToRoman(val));
+    }
 
+    static String intToRoman(int num) {
 
+    }
 
 
 
