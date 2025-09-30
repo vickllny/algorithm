@@ -708,23 +708,181 @@ public class LeetcodeTests {
     }
 
     static int lengthOfLastWord(String s) {
-
+        if(!s.contains(" ")){
+            return s.length();
+        }
+        final String[] s1 = s.split(" ");
+        for (int i = s1.length - 1; i >= 0; i--) {
+            if(s1[i].equals(" ")){
+                continue;
+            }
+            return s1[i].length();
+        }
+        return 0;
     }
 
+    /**
+     * 最长公共前缀
+     * https://leetcode.cn/problems/longest-common-prefix/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test19(){
+        String[] val = {"flower","flow","flight"};
+        System.out.println(longestCommonPrefix(val));
+    }
 
+    static String longestCommonPrefix(String[] strs) {
+        if(strs == null || strs.length == 0){
+            return "";
+        }
+        if(strs.length == 1){
+            return strs[0];
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        final char[] charArray = strs[0].toCharArray();
+        for (int i = 0; i < charArray.length; i++) {
+            char c = charArray[i];
+            for (int j = 1; j < strs.length; j++) {
+                if(strs[j].length() -1 < i || strs[j].charAt(i) != c){
+                    return stringBuilder.toString();
+                }
+            }
+            stringBuilder.append(c);
+        }
+        return stringBuilder.toString();
+    }
 
+    /**
+     * 反转字符串中的单词
+     * https://leetcode.cn/problems/reverse-words-in-a-string/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test20(){
+        String s = "  hello world  ";
+        System.out.println(reverseWords(s));
+    }
 
+    static String reverseWords(String s) {
+        if(s == null || s.isEmpty()){
+            return s;
+        }
+        if(s.trim().isEmpty()){
+            return s;
+        }
+        final String[] s1 = s.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (int i = s1.length - 1; i >= 0; i--) {
+            if(s1[i].isEmpty() || s1[i].equals(" ")){
+                continue;
+            }
+            sb.append(s1[i]);
+            if(i != 0){
+                sb.append(" ");
+            }
+        }
+        return sb.toString().trim();
+    }
 
+    /**
+     * Z 字形变换
+     * https://leetcode.cn/problems/zigzag-conversion/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test21(){
+        String s = "PAYPALISHIRING";
+        int numRows = 3;
+        System.out.println(convert(s, numRows));
+    }
 
+    static String convert(String s, int numRows) {
+        if(numRows < 2){
+            return s;
+        }
+        boolean down = false; //向下
+        String[] s1 = new String[numRows];
+        final char[] charArray = s.toCharArray();
+        for (int i = 0, row = 0; i < s.length(); i++) {
+            s1[row] = s1[row] == null ? String.valueOf(charArray[i]): s1[row] + charArray[i];
+            if(row == 0 || row == numRows - 1){
+                down = !down;
+            }
+            row += down ? 1 : - 1;
+        }
 
+        StringBuilder sb = new StringBuilder();
+        for (final String string : s1) {
+            if(string != null){
+                sb.append(string);
+            }
+        }
+        return sb.toString();
+    }
 
+    /**
+     * 找出字符串中第一个匹配项的下标
+     * https://leetcode.cn/problems/find-the-index-of-the-first-occurrence-in-a-string/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test22(){
+        String s = "PAYPALISHIRING";
+        String numRows = "aaa";
+        System.out.println(strStr(s, numRows));
+    }
 
+    int strStr(String haystack, String needle) {
+        return haystack.indexOf(needle);
+    }
 
+    /**
+     * 文本左右对齐
+     * https://leetcode.cn/problems/text-justification/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test23(){
+//        String[] s = {"This", "is", "an", "example", "of", "text", "justification."};
+//        String[] s = {"What","must","be","acknowledgment","shall","be"};
+        String[] s = {"Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"};
+        int maxWidth = 20;
+        System.out.println(fullJustify(s, maxWidth));
+    }
 
+    static List<String> fullJustify(String[] words, int maxWidth) {
+        List<String> list = new ArrayList<>();
+        List<String> cur = new ArrayList<>();
+        for (int i = 0, curWidth = 0; i < words.length; i++) {
+            if(words[i].length() + curWidth + cur.size() <= maxWidth){
+                curWidth += words[i].length();
+                cur.add(words[i]);
+            }else {
+                list.add(fillSpace(cur, maxWidth, false));
+                cur = new ArrayList<>();
+                cur.add(words[i]);
+                curWidth = 0;
+            }
+        }
+        list.add(fillSpace(cur, maxWidth, true ));
+        return list;
+    }
 
-
-
-
+    static String fillSpace(List<String> words, int maxWidth, boolean last){
+        int curWidth = 0;
+        for (int i = 0; i < words.size(); i++) {
+            if(i != words.size() - 1){
+                words.set(i, words.get(i) + " ");
+            }
+            curWidth += words.get(i).length();
+        }
+        if(words.size() == 1 || last){
+            for (int i = words.get(words.size() - 1).length(); i < maxWidth; i++) {
+                words.set(words.size() - 1, words.get(words.size() - 1) + " ");
+            }
+        }else {
+            for (int i = 0; curWidth++ < maxWidth ; i = (i + 1) % words.size()) {
+                words.set(i, words.get(i) + " ");
+            }
+        }
+        return String.join("", words);
+    }
 
 
 
