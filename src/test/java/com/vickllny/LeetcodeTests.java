@@ -10,11 +10,11 @@ import java.util.*;
  */
 public class LeetcodeTests {
 
-    @Test
     /**
      * https://leetcode.cn/problems/merge-sorted-array/?envType=study-plan-v2&envId=top-interview-150
      * 合并2个数组
      */
+    @Test
     public void test(){
         int[] nums1 = {-1,0,0,3,3,3,0,0,0};
         int[] nums2 = {1,2,2};
