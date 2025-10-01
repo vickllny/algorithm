@@ -2,6 +2,8 @@ package com.vickllny;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 public class LeetcodeTestsOfTest {
 
     /**
@@ -127,7 +129,37 @@ public class LeetcodeTestsOfTest {
         return left + 1;
     }
 
+    /**
+     * 多数元素
+     * https://leetcode.cn/problems/majority-element/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test4(){
+//        int[] nums = {3,3,4};
+        int[] nums = {2,2,1,1,1,2,2};
+        System.out.println(majorityElement(nums));
+    }
 
+    static int majorityElement(int[] nums) {
+        Arrays.sort(nums);
+        int curVal = nums[0], maxValue = curVal, count = 1, maxCount = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if(curVal == nums[i]){
+                count++;
+                continue;
+            }
+            if(count > maxCount){
+                maxValue = curVal;
+                maxCount = count;
+            }
+            count = 1;
+            curVal = nums[i];
+        }
+        if(count > maxCount){
+            maxValue = curVal;
+        }
+        return maxValue;
+    }
 
 
 
