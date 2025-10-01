@@ -66,9 +66,66 @@ public class LeetcodeTestsOfTest {
         return left;
     }
 
+    /**
+     * 删除有序数组中的重复项
+     * https://leetcode.cn/problems/remove-duplicates-from-sorted-array/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test2(){
+        int[] nums = {1,2,2,3};
+        System.out.println(removeDuplicates(nums));
+    }
+
+    static int removeDuplicates(int[] nums){
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+        if(nums.length == 1){
+            return 1;
+        }
+        int left = 0, right = 0;
+        while (right < nums.length){
+            if(nums[left] == nums[right]){
+                right++;
+                continue;
+            }
+            nums[++left] = nums[right++];
+        }
+        return left + 1;
+    }
 
 
+    /**
+     * 删除有序数组中的重复项 II
+     * https://leetcode.cn/problems/remove-duplicates-from-sorted-array-ii/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test3(){
+        int[] nums = {1,1,1,2,2,3};
+        System.out.println(removeDuplicates1(nums));
+    }
 
+    static int removeDuplicates1(int[] nums){
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+        int left = 0, right = 1;
+        while (right < nums.length){
+            if(nums[left] == nums[right]){
+                if(left == 0){
+                    left++;
+                    right++;
+                    continue;
+                }
+                if(nums[left - 1] == nums[left]){
+                    right++;
+                    continue;
+                }
+            }
+            nums[++left] =nums[right++];
+        }
+        return left + 1;
+    }
 
 
 
