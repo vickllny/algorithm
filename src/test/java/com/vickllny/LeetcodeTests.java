@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.*;
 
 /**
+ * 数组字符串相关的题
  * https://leetcode.cn/studyplan/top-interview-150/
  */
 public class LeetcodeTests {
@@ -857,7 +858,7 @@ public class LeetcodeTests {
                 list.add(fillSpace(cur, maxWidth, false));
                 cur = new ArrayList<>();
                 cur.add(words[i]);
-                curWidth = 0;
+                curWidth = words[i].length();
             }
         }
         list.add(fillSpace(cur, maxWidth, true ));
@@ -866,25 +867,65 @@ public class LeetcodeTests {
 
     static String fillSpace(List<String> words, int maxWidth, boolean last){
         int curWidth = 0;
+        final int lastIndex = words.size() - 1;
         for (int i = 0; i < words.size(); i++) {
-            if(i != words.size() - 1){
+            if(i != lastIndex){
                 words.set(i, words.get(i) + " ");
             }
             curWidth += words.get(i).length();
         }
         if(words.size() == 1 || last){
-            for (int i = words.get(words.size() - 1).length(); i < maxWidth; i++) {
-                words.set(words.size() - 1, words.get(words.size() - 1) + " ");
+            for (int i = curWidth; i < maxWidth; i++) {
+                words.set(lastIndex, words.get(lastIndex) + " ");
             }
         }else {
-            for (int i = 0; curWidth++ < maxWidth ; i = (i + 1) % words.size()) {
+            for (int i = 0; curWidth++ < maxWidth ; i = (i + 1) % (lastIndex)) {
                 words.set(i, words.get(i) + " ");
             }
         }
         return String.join("", words);
     }
 
+    static List<String> fullJustify1(String[] words, int maxWidth) {
+        List<String> cur = new ArrayList<>();
+        List<String> ans = new ArrayList<>();
+        for (int i = 0, curWidth = 0; i < words.length; i++) {
+            if(words[i].length() + curWidth + cur.size() <= maxWidth){
+                cur.add(words[i]);
+                curWidth += words[i].length();
+            }else {
+                ans.add(fillSpace1(cur, maxWidth, false));
+                cur = new ArrayList<>();
+                cur.add(words[i]);
+                curWidth = words[i].length();
+            }
+        }
+        ans.add(fillSpace1(cur, maxWidth, true));
+        return ans;
+    }
 
+
+    static String fillSpace1(List<String> words, int maxWidth, boolean last){
+        int curWidth = 0;
+        final int lastIndex = words.size() - 1;
+        for (int i = 0; i < words.size(); i++) {
+            if(i != lastIndex){
+                words.set(i, words.get(i) + " ");
+            }
+            curWidth += words.get(i).length();
+        }
+
+        if(lastIndex == 0 || last){
+            for (int i = curWidth; i < maxWidth; i++) {
+                words.set(lastIndex, words.get(lastIndex) + " ");
+            }
+        }else {
+            for (int i = 0; curWidth++ < maxWidth ; i = (i + 1) % lastIndex) {
+                words.set(i, words.get(i) + " ");
+            }
+        }
+        return String.join("", words);
+    }
 
 
 
