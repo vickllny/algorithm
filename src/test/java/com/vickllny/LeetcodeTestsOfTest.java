@@ -163,17 +163,150 @@ public class LeetcodeTestsOfTest {
         return maxValue;
     }
 
+    /**
+     * 轮转数组
+     * https://leetcode.cn/problems/rotate-array/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test5(){
+        int[] nums = {1,2,3};
+        int k = 4;
+        rotate(nums, k);
+    }
+
+    static void rotate(int[] nums, int k) {
+        int[] arr = new int[nums.length];
+        k = k % nums.length;
+        for (int i = 0; i < nums.length; i++) {
+            int index = (i + k) % nums.length;
+            arr[index] = nums[i];
+        }
+        System.arraycopy(arr, 0, nums, 0, nums.length);
+    }
+
+    /**
+     * 买卖股票的最佳时机
+     * https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test6(){
+        int[] nums = {2,4,1};
+        System.out.println(maxProfit(nums));
+    }
+
+    static int maxProfit(int[] prices) {
+        if(prices == null || prices.length < 2){
+            return 0;
+        }
+        int minPrice = prices[0], val = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if(prices[i] < minPrice){
+                minPrice = prices[i];
+            }else if(prices[i] - minPrice > val){
+                val = prices[i] - minPrice;
+            }
+        }
+        return val;
+    }
 
 
+    /**
+     * 买卖股票的最佳时机 II
+     * https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test7(){
+        int[] nums = {7,6,4,3,1};
+        System.out.println(maxProfit1(nums));
+    }
 
+    static int maxProfit1(int[] prices) {
+        if(prices == null || prices.length < 2){
+            return 0;
+        }
+        int cur = prices[0], val = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if(prices[i] > cur){
+                val += prices[i] - cur;
+            }
+            cur = prices[i];
+        }
+        return val;
+    }
 
+    /**
+     * 跳跃游戏 - 贪心算法
+     * https://leetcode.cn/problems/jump-game/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test8(){
+        int[] nums = {3,2,1,0,4};
+        System.out.println(canJump(nums));
+    }
 
+    static boolean canJump(int[] nums) {
+        if(nums.length == 1){
+            return true;
+        }
+        int maxJump = nums[0], index = 1, tempJump;
+        while (index < nums.length && index <= maxJump){
+            if((tempJump = nums[index] + index) > maxJump){
+                maxJump = tempJump;
+            }
+            index++;
+        }
+        return index == nums.length;
+    }
 
+    /**
+     * 跳跃游戏 II
+     * https://leetcode.cn/problems/jump-game-ii/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test9(){
+        int[] nums = {7,0,9,6,9,6,1,7,9,0,1,2,9,0,3};
+//        int[] nums = {2,3,1,1,4};
+//        int[] nums = {2,3,0,1,4};
+//        int[] nums = {1,2,3};
+        System.out.println(jump(nums));
+    }
 
+    static int jump(int[] nums) {
+        if(nums.length == 1){
+            return 0;
+        }
+        int maxJump = 0, end = 0, ans = 0;
+        for (int i = 0; i < nums.length - 1; i++) {
+            maxJump = Math.max(maxJump, i + nums[i]);
+            if(i == end){
+                end = maxJump;
+                ans++;
+            }
+        }
+        return ans;
+    }
 
+    /**
+     * H 指数
+     * https://leetcode.cn/problems/h-index/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test10(){
+//        int[] nums = {7,0,9,6,9,6,1,7,9,0,1,2,9,0,3};
+//        int[] nums = {3,0,6,1,5};
+        int[] nums = {1,3,1};
+        System.out.println(hIndex(nums));
+    }
 
-
-
+    static int hIndex(int[] citations) {
+        Arrays.sort(citations);
+        int h = 0, index = citations.length - 1;
+        while (index >= 0 && h < citations[index]){
+            index--;
+            h++;
+        }
+        return h;
+    }
 
 
 
