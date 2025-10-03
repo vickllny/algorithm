@@ -2,7 +2,9 @@ package com.vickllny;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class LeetcodeTestsOfTest {
 
@@ -176,7 +178,59 @@ public class LeetcodeTestsOfTest {
 
 
 
+    /**
+     * 文本左右对齐
+     * https://leetcode.cn/problems/text-justification/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test23(){
+//        String[] s = {"This", "is", "an", "example", "of", "text", "justification."};
+//        String[] s = {"What","must","be","acknowledgment","shall","be"};
+        String[] s = {"Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"};
+        int maxWidth = 20;
+        System.out.println(fullJustify(s, maxWidth));
+    }
 
+    static List<String> fullJustify(String[] words, int maxWidth) {
+        List<String> list = new ArrayList<>();
+        List<String> cur = new ArrayList<>();
+        for (int i = 0, curWidth = 0; i < words.length; i++) {
+            if(words[i].length() + curWidth + cur.size() <= maxWidth){
+                curWidth += words[i].length();
+                cur.add(words[i]);
+            }else {
+                list.add(fillSpace(cur, maxWidth, false));
+                cur = new ArrayList<>();
+                cur.add(words[i]);
+                curWidth = words[i].length();
+            }
+        }
+        if(!cur.isEmpty()){
+            list.add(fillSpace(cur, maxWidth, true));
+        }
+        return list;
+    }
+
+    static String fillSpace(List<String> words, int maxWidth, boolean last){
+        int curWidth = 0;
+        final int lastIndex = words.size() - 1;
+        for (int i = 0; i < words.size(); i++) {
+            if(i != lastIndex){
+                words.set(i, words.get(i) + " ");
+            }
+            curWidth += words.get(i).length();
+        }
+        if(last || lastIndex == 0){
+            for (int i = curWidth; i < maxWidth; i++) {
+                words.set(lastIndex, words.get(lastIndex) + " ");
+            }
+        }else {
+            for (int i = 0; curWidth++ < maxWidth; i = (i + 1) % lastIndex) {
+                words.set(i, words.get(i) + " ");
+            }
+        }
+        return String.join("", words);
+    }
 
 
     static void swap(int[] arr, int i, int j){
