@@ -2,9 +2,7 @@ package com.vickllny;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class LeetcodeTestsOfTest {
 
@@ -307,6 +305,204 @@ public class LeetcodeTestsOfTest {
         }
         return h;
     }
+
+
+    /**
+     * O(1) 时间插入、删除和获取随机元素
+     * https://leetcode.cn/problems/insert-delete-getrandom-o1/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test11(){
+        final RandomizedSet set = new RandomizedSet();
+
+        set.insert(-20);
+        set.insert(-47);
+        set.remove(-20);
+        set.remove(-47);
+
+        set.insert(-119);
+        set.insert(-119);
+        set.remove(-119);
+
+        set.insert(-99);
+        set.remove(-99);
+        set.insert(-121);
+
+        System.out.println(set.getRandom());
+    }
+
+
+    class RandomizedSet {
+
+        private List<Integer> values = new ArrayList<>();
+        private Map<Integer, Integer> valueToIndex = new HashMap<>();
+
+        public RandomizedSet() {
+
+        }
+
+        public boolean insert(int val) {
+            if(valueToIndex.containsKey(val)){
+                return false;
+            }
+            values.add(val);
+            valueToIndex.put(val, values.size() - 1);
+            return true;
+        }
+
+        public boolean remove(int val) {
+            if(!valueToIndex.containsKey(val)){
+                return false;
+            }
+            final int index = valueToIndex.get(val);
+            if(index == values.size() - 1){
+                values.remove((int)index);
+                valueToIndex.remove(val);
+                return true;
+            }
+            final Integer lastValue = values.get(values.size() - 1);
+            values.set(index, lastValue);
+            values.remove(values.size() - 1);
+            valueToIndex.put(lastValue, index);
+            valueToIndex.remove(val);
+            return true;
+        }
+
+        public int getRandom() {
+            final Random random = new Random();
+            final int index = random.nextInt(values.size());
+            return values.get(index);
+        }
+    }
+
+    /**
+     * 除自身以外数组的乘积
+     * https://leetcode.cn/problems/product-of-array-except-self/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test12(){
+//        int[] nums = {1,2,3,4};
+        int[] nums = {-1,1,0,-3,3};
+        System.out.println(Arrays.toString(productExceptSelf(nums)));
+    }
+
+    static int[] productExceptSelf(int[] nums) {
+        int[] res = new int[nums.length];
+        int prefix = 1;
+        for (int i = 0; i < nums.length; i++) {
+            res[i] = prefix;
+            prefix *= nums[i];
+        }
+        int post = 1;
+        for (int i = nums.length - 1; i >= 0; i--) {
+            res[i] = post * res[i];
+            post *= nums[i];
+        }
+        return res;
+    }
+
+    /**
+     * 加油站
+     * https://leetcode.cn/problems/gas-station/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test13(){
+//        int[] nums = {1,2,3,4};
+        int[] gas = {2,3,4};
+        int[] cost = {3,4,3};
+        System.out.println(canCompleteCircuit(gas, cost));
+    }
+
+    static int canCompleteCircuit(int[] gas, int[] cost) {
+        int size = gas.length;
+        for (int i = 0; i < size; ) {
+            int j = 0, left = 0;
+            while (j < size){
+                int k = (i + j) % size;
+                left += gas[k] - cost[k];
+                if(left < 0){
+                    break;
+                }
+                j++;
+            }
+            if(j == size){
+                return i;
+            }
+            i += j + 1;
+        }
+        return -1;
+    }
+
+    /**
+     * 分发糖果
+     * https://leetcode.cn/problems/candy/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test14(){
+//        int[] ratings = {1,2,3,4};
+        int[] ratings = {1,0,0,1,2,1,3,2};
+//        2 1 1 2 3 1 3 2
+        System.out.println(candy(ratings));
+    }
+
+    static int candy(int[] ratings) {
+        final int length = ratings.length;
+        int[] left = new int[length];
+        for (int i = 1; i < ratings.length; i++) {
+            if(ratings[i] > ratings[i - 1]) {
+                left[i] = left[i - 1] + 1;
+            }
+        }
+
+        int[] right = new int[length];
+        for (int i = ratings.length - 2; i >= 0; i--) {
+            if(ratings[i] > ratings[i + 1]){
+                right[i] = right[i + 1] + 1;
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i < length; i++) {
+            ans += Math.max(left[i], right[i]) + 1;
+        }
+        return ans;
+    }
+
+    /**
+     * 接雨水
+     * https://leetcode.cn/problems/trapping-rain-water/description/?envType=study-plan-v2&envId=top-interview-150
+     * 解法：前缀和、后缀和
+     */
+    @Test
+    public void test15(){
+//        int[] ratings = {0,1,0,2,1,0,1,3,2,1,2,1};
+        int[] ratings = {4,2,0,3,2,5};
+        System.out.println(trap(ratings));
+    }
+
+    static int trap(int[] height) {
+        final int length = height.length;
+        int[] left = new int[length];
+        left[0] = height[0];
+        for (int i = 1; i < height.length; i++) {
+            left[i] = Math.max(left[i - 1], height[i]);
+        }
+        int[] right = new int[length];
+        right[length - 1] = height[length - 1];
+        for (int i = length - 2; i >= 0; i--) {
+            right[i] = Math.max(right[i + 1], height[i]);
+        }
+        int ans = 0;
+        for (int i = 0; i < length; i++) {
+            ans += Math.min(left[i], right[i]) - height[i];
+        }
+        return ans;
+    }
+
+
+
+
+
+
 
 
 
