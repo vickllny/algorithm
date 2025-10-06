@@ -928,6 +928,30 @@ public class LeetcodeTests {
     }
 
 
+    /**
+     * 验证回文串
+     * https://leetcode.cn/problems/valid-palindrome/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test24(){
+        String s = "A man, a plan, a canal: Panama";
+        System.out.println(isPalindrome(s));
+    }
 
-
+    static boolean isPalindrome(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (final char c : s.toCharArray()) {
+            if(Character.isLetterOrDigit(c)){
+                sb.append(c);
+            }
+        }
+        final int length = sb.length();
+        int left = 0, right = length - 1;
+        while (left < right){
+            if(Character.toLowerCase(sb.charAt(left++)) != Character.toLowerCase(sb.charAt(right--))){
+                return false;
+            }
+        }
+        return true;
+    }
 }
