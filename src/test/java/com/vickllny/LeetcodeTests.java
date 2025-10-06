@@ -1076,7 +1076,35 @@ public class LeetcodeTests {
         return list;
     }
 
+    /**
+     * 长度最小的子数组
+     * https://leetcode.cn/problems/minimum-size-subarray-sum/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test29(){
+//        int[] numbers = {1,8,6,2,5,4,8,3,7};
+        int[] numbers = {1,4,4};
+        int target = 4;
+        System.out.println(minSubArrayLen(target, numbers));
+    }
 
-
+    static int minSubArrayLen(int target, int[] nums) {
+        int ans = 0;
+        int count = 0, p1 = 0, p2 = 0;
+        while (p1 < nums.length && p2 < nums.length){
+            count += nums[p2];
+            if(count >= target){
+                ans = ans == 0 ? p2 - p1 + 1 : Math.min(p2 - p1 + 1, ans);
+                //向右收敛
+                while (p1 <= p2 && count - nums[p1] >= target){
+                    count -= nums[p1];
+                    p1++;
+                    ans = Math.min(p2 - p1 + 1, ans);
+                }
+            }
+            p2++;
+        }
+        return ans;
+    }
 
 }
