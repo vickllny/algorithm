@@ -1107,4 +1107,18 @@ public class LeetcodeTests {
         return ans;
     }
 
+    /**
+     * 无重复字符的最长子串
+     * https://leetcode.cn/problems/longest-substring-without-repeating-characters/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test30(){
+        String s = "4";
+        System.out.println(lengthOfLongestSubstring(s));
+    }
+
+    static int lengthOfLongestSubstring(String s) {
+
+    }
+
 }
