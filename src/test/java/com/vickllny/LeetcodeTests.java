@@ -954,4 +954,129 @@ public class LeetcodeTests {
         }
         return true;
     }
+
+    /**
+     * 判断子序列
+     * https://leetcode.cn/problems/is-subsequence/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test25(){
+        String s = "abc";
+        String t = "ahbgdc";
+        System.out.println(isSubsequence(s, t));
+    }
+
+    boolean isSubsequence(String s, String t) {
+        if(s == null || s.isEmpty()){
+            return true;
+        }
+        if(t == null || t.isEmpty()){
+            return false;
+        }
+        int p = 0;
+        final int s_len = s.length();
+        final int length = t.length();
+        for (int i = 0; i < length; i++) {
+            if(s.charAt(p) == t.charAt(i)){
+                if(p == s_len - 1){
+                    return true;
+                }
+                p++;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 两数之和 II - 输入有序数组
+     * https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test26(){
+        int[] numbers = {-1, 0};
+        int target = -1;
+        System.out.println(Arrays.toString(twoSum(numbers, target)));
+    }
+
+    static int[] twoSum(int[] numbers, int target) {
+        int left = 0, right = numbers.length - 1;
+        while (left < right){
+            int val = numbers[left] + numbers[right];
+            if(val == target){
+                break;
+            }else if(val < target){
+                left++;
+            }else {
+                right--;
+            }
+        }
+        return new int[]{left + 1, right + 1};
+    }
+
+
+    /**
+     * 盛最多水的容器
+     * https://leetcode.cn/problems/container-with-most-water/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test27(){
+//        int[] numbers = {1,8,6,2,5,4,8,3,7};
+        int[] numbers = {1,1};
+        System.out.println(maxArea(numbers));
+    }
+
+    static int maxArea(int[] height) {
+        int maxArea = 0, left = 0, right = height.length - 1;
+        while (left < right){
+            maxArea = Math.max(Math.min(height[left], height[right]) * (right - left), maxArea);
+            if(height[left] <= height[right]){
+                left++;
+            }else {
+                right--;
+            }
+        }
+        return maxArea;
+    }
+
+
+    /**
+     * 三数之和
+     * https://leetcode.cn/problems/3sum/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test28(){
+//        int[] numbers = {1,8,6,2,5,4,8,3,7};
+        int[] numbers = {1,1};
+        System.out.println(threeSum(numbers));
+    }
+
+    static List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            if(i > 0 && nums[i] == nums[i - 1]) continue;
+            int left = i + 1, right = nums.length - 1;
+            int target = -nums[i];
+            while (left < right){
+                int tempVal = nums[left] + nums[right];
+                if(tempVal == target){
+                    final List<Integer> arrayList = Arrays.asList(nums[i], nums[left], nums[right]);
+                    list.add(arrayList);
+                    while (left < right && nums[left] == nums[left + 1]) left++;
+                    while (left < right && nums[right] == nums[right - 1]) right--;
+                    left++;
+                    right--;
+                }else if(tempVal < target){
+                    left++;
+                }else {
+                    right--;
+                }
+            }
+        }
+        return list;
+    }
+
+
+
+
 }
