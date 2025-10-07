@@ -3,6 +3,8 @@ package com.vickllny;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LeetcodeTestsOfTest {
 
@@ -569,5 +571,181 @@ public class LeetcodeTestsOfTest {
         arr[i] = arr[i] ^ arr[j];
         arr[j] = arr[i] ^ arr[j];
         arr[i] = arr[i] ^ arr[j];
+    }
+
+    /**
+     * 验证回文串
+     * https://leetcode.cn/problems/valid-palindrome/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test24(){
+        String s = "A man, a plan, a canal: Panama";
+        System.out.println(isPalindrome(s));
+    }
+
+    static boolean isPalindrome(String s) {
+        StringBuilder sb = new StringBuilder();
+        int length = s.length();
+        for (int i = 0; i < length; i++) {
+            char c = Character.toLowerCase(s.charAt(i));
+            if(Character.isLetterOrDigit(c)){
+                sb.append(c);
+            }
+        }
+        int lengthed = sb.length();
+        int left = 0, right = lengthed - 1;
+        while (left < right){
+            if(sb.charAt(left++) != sb.charAt(right--)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 判断子序列
+     * https://leetcode.cn/problems/is-subsequence/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test25(){
+        String s = "abc";
+        String t = "ahbgdc";
+        System.out.println(isSubsequence(s, t));
+    }
+
+    boolean isSubsequence(String s, String t) {
+        if(s == null || s.isEmpty()){
+            return true;
+        }
+        if(t == null || t.isEmpty()){
+            return false;
+        }
+        int p1 = 0, p2 = 0;
+        while (p1 < s.length() && p2 < t.length()){
+            if(s.charAt(p1) == t.charAt(p2)){
+                if(p1 == s.length() - 1){
+                    return true;
+                }
+                p1++;
+            }
+            p2++;
+        }
+        return false;
+    }
+
+    /**
+     * 两数之和 II - 输入有序数组
+     * https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test26(){
+        int[] numbers = {-1, 0};
+        int target = -1;
+        System.out.println(Arrays.toString(twoSum(numbers, target)));
+    }
+
+    static int[] twoSum(int[] numbers, int target) {
+        int p1 = 0, p2 = numbers.length - 1;
+        while (p1 < p2){
+            int val = numbers[p1] + numbers[p2];
+            if(val == target){
+                return new int[]{p1 + 1, p2 + 1};
+            }else if(val < target){
+                p1++;
+            }else {
+                p2--;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 盛最多水的容器
+     * https://leetcode.cn/problems/container-with-most-water/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test27(){
+//        int[] numbers = {1,8,6,2,5,4,8,3,7};
+        int[] numbers = {1,1};
+        System.out.println(maxArea(numbers));
+    }
+
+    static int maxArea(int[] height) {
+        int p1 = 0, p2 = height.length - 1;
+        int ans = 0;
+        while (p1 < p2){
+            ans = Math.max(Math.min(height[p1], height[p2]) * (p2 - p1), ans);
+            if(height[p1] <= height[p2]){
+                p1++;
+            }else {
+                p2--;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 三数之和
+     * https://leetcode.cn/problems/3sum/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test28(){
+//        int[] numbers = {1,8,6,2,5,4,8,3,7};
+        int[] numbers = {1,1};
+        System.out.println(threeSum(numbers));
+    }
+
+    static List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            int left = i + 1, right = nums.length - 1;
+            int target = -nums[i];
+            while (left < right){
+                int val = nums[left] + nums[right];
+                if(val == target){
+                    list.add(Stream.of(nums[i], nums[left], nums[right]).collect(Collectors.toList()));
+                    while (left < right && nums[left] == nums[left + 1]) left++;
+                    while (left < right && nums[right] == nums[right - 1]) right--;
+                    left++;
+                    right--;
+                }else if(val < target){
+                    left++;
+                }else {
+                    right--;
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 长度最小的子数组
+     * https://leetcode.cn/problems/minimum-size-subarray-sum/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test29(){
+//        int[] numbers = {1,8,6,2,5,4,8,3,7};
+        int[] numbers = {1,4,4};
+        int target = 4;
+        System.out.println(minSubArrayLen(target, numbers));
+    }
+
+    static int minSubArrayLen(int target, int[] nums) {
+        int ans = 0, count = 0, p1 = 0, p2 = 0;
+        while (p2 < nums.length){
+            count += nums[p2];
+            if(count >= target){
+                ans = ans == 0 ? p2 - p1 + 1 : Math.min(p2 - p1 + 1, ans);
+                //p1向右收敛
+                while (p1 < p2 && count - nums[p1] >= target){
+                    count -= nums[p1++];
+                    ans = Math.min(ans, p2 - p1 + 1);
+                }
+            }
+            p2++;
+        }
+        return ans;
     }
 }

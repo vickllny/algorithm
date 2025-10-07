@@ -1118,7 +1118,7 @@ public class LeetcodeTests {
     }
 
     static int lengthOfLongestSubstring(String s) {
-
+        return 0;
     }
 
 }
