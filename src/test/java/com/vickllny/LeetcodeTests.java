@@ -1165,32 +1165,65 @@ public class LeetcodeTests {
         int v = words.length * w_len;
         int length = s.length();
         List<Integer> list = new ArrayList<>();
-        for (int i = 0, right = i + v; i <= length - v; i++, right++) {
-            int j = i;
+        //2.优化写法
+        for (int i = 0; i < w_len; i++) {
+            Map<String, Integer> window = new HashMap<>();
             int count = 0;
-            Map<String, Integer> tempMap = new HashMap<>();
-            while (j < right){
-                String word = s.substring(j, j + w_len);
-                if(map.containsKey(word)){
-                    if(tempMap.containsKey(word)){
-                        tempMap.put(word, tempMap.get(word) + 1);
+            for (int j = i; j + w_len <= length; j += w_len) {
+                if(j - i >= words.length * w_len){
+                    String word = s.substring(j - words.length * w_len, j - words.length * w_len + w_len);
+                    if(window.containsKey(word)){
+                        window.put(word, window.get(word) - 1);
                     }else {
-                        tempMap.put(word, 1);
+                        window.put(word, 0);
                     }
-                    if(tempMap.get(word) <= map.get(word)){
+                    if(map.get(word) != null && window.get(word) < map.get(word)){
                         count++;
-                    }else {
-                        break;
                     }
-                }else {
-                    break;
                 }
-                j += w_len;
-            }
-            if(count == words.length){
-                list.add(i);
+
+                String word = s.substring(j, j + w_len);
+                if(window.containsKey(word)){
+                    window.put(word, window.get(word) + 1);
+                }else {
+                    window.put(word, 1);
+                }
+                if(map.get(word) !=  null && window.get(word) <= map.get(word)){
+                    count++;
+                }
+                if(count == words.length){
+                    list.add(j - (word.length() - 1) * w_len);
+                }
             }
         }
+
+        //1.超时写法
+//        for (int i = 0, right = i + v; i <= length - v; i++, right++) {
+//            int j = i;
+//            int count = 0;
+//            Map<String, Integer> tempMap = new HashMap<>();
+//            while (j < right){
+//                String word = s.substring(j, j + w_len);
+//                if(map.containsKey(word)){
+//                    if(tempMap.containsKey(word)){
+//                        tempMap.put(word, tempMap.get(word) + 1);
+//                    }else {
+//                        tempMap.put(word, 1);
+//                    }
+//                    if(tempMap.get(word) <= map.get(word)){
+//                        count++;
+//                    }else {
+//                        break;
+//                    }
+//                }else {
+//                    break;
+//                }
+//                j += w_len;
+//            }
+//            if(count == words.length){
+//                list.add(i);
+//            }
+//        }
         return list;
     }
 }
