@@ -1113,12 +1113,24 @@ public class LeetcodeTests {
      */
     @Test
     public void test30(){
-        String s = "4";
+//        String s = "abcabcbb";
+//        String s = "bbbb";
+        String s = "pwwkew";
         System.out.println(lengthOfLongestSubstring(s));
     }
 
     static int lengthOfLongestSubstring(String s) {
-        return 0;
+        int ans = 0, length = s.length(), p1 = 0, p2 = p1;
+        Set<Character> set = new HashSet<>();
+        while (p1 < length){
+            while (p2 < length && set.add(s.charAt(p2))){
+                p2++;
+                ans = Math.max(ans, set.size());
+            }
+            set.remove(s.charAt(p1));
+            p1++;
+        }
+        return ans;
     }
 
 }
