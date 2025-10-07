@@ -1133,4 +1133,64 @@ public class LeetcodeTests {
         return ans;
     }
 
+    /**
+     * 串联所有单词的子串
+     * https://leetcode.cn/problems/substring-with-concatenation-of-all-words/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test31(){
+//        String s = "barfoothefoobarman";
+//        String[] words = {"foo","bar"};
+//        String s = "wordgoodgoodgoodbestword";
+//        String[] words = {"word","good","best","word"};
+//        String s = "barfoofoobarthefoobarman";
+//        String[] words = {"bar","foo","the"};
+        String s = "wordgoodgoodgoodbestword";
+        String[] words = {"word","good","best","good"};
+        System.out.println(findSubstring(s, words));
+    }
+
+    static List<Integer> findSubstring(String s, String[] words) {
+        //1.超时写法
+        Map<String, Integer> map = new HashMap<>();
+        for (String word : words) {
+            if(map.containsKey(word)){
+                map.put(word, map.get(word) + 1);
+            }else {
+                map.put(word, 1);
+            }
+        }
+
+        int w_len = words[0].length();
+        int v = words.length * w_len;
+        int length = s.length();
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0, right = i + v; i <= length - v; i++, right++) {
+            int j = i;
+            int count = 0;
+            Map<String, Integer> tempMap = new HashMap<>();
+            while (j < right){
+                String word = s.substring(j, j + w_len);
+                if(map.containsKey(word)){
+                    if(tempMap.containsKey(word)){
+                        tempMap.put(word, tempMap.get(word) + 1);
+                    }else {
+                        tempMap.put(word, 1);
+                    }
+                    if(tempMap.get(word) <= map.get(word)){
+                        count++;
+                    }else {
+                        break;
+                    }
+                }else {
+                    break;
+                }
+                j += w_len;
+            }
+            if(count == words.length){
+                list.add(i);
+            }
+        }
+        return list;
+    }
 }
