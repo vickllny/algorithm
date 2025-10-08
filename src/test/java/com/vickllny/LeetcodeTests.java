@@ -1226,4 +1226,80 @@ public class LeetcodeTests {
 //        }
         return list;
     }
+
+    /**
+     * 最小覆盖子串
+     * https://leetcode.cn/problems/minimum-window-substring/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test32(){
+//        String s = "ADOBECODEBANC";
+//        String t = "ABC";
+//        String s = "a";
+//        String t = "aa";
+        String s = "ab";
+        String t = "b";
+        System.out.println(minWindow(s, t));
+    }
+
+    static String minWindow(String s, String t) {
+        int t_len = t.length();
+        int s_len = s.length();
+        if(s_len < t_len){
+            return "";
+        }
+        Map<Character, Integer> map = new HashMap<>();
+        Map<Character, Integer> window = new HashMap<>();
+        for (int i = 0; i < t_len; i++) {
+            char c = t.charAt(i);
+            if(map.containsKey(c)){
+                map.put(c, map.get(c) + 1);
+            }else {
+                map.put(c, 1);
+                window.put(c, 0);
+            }
+        }
+
+        int p1 = 0, minWindow = 0, count = 0, targetP1 = -1, targetP2 = -1;
+        for (int p2 = 0; p2 < s_len; p2++) {
+            char c = s.charAt(p2);
+            if(!window.containsKey(c)){
+                continue;
+            }
+            window.put(c, window.get(c) + 1);
+            if(window.get(c) <= map.get(c)){
+                //有效字符
+                count++;
+            }
+
+            if(count == t_len){
+                int tempWindow = p2 - p1 + 1;
+                if(minWindow == 0 || tempWindow < minWindow){
+                    //第一次
+                    minWindow = tempWindow;
+                    targetP1 = p1;
+                    targetP2 = p2;
+                }
+                //移除第一个count
+                while (p1 <= p2 && count == t_len){
+                    char c1 = s.charAt(p1);
+                    if(window.containsKey(c1)){
+                        if(window.get(c1) <= map.get(c1)){
+                            count--;
+                        }
+                        window.put(c1, window.get(c1) - 1);
+                    }
+                    tempWindow = p2 - p1 + 1;
+                    if(minWindow == 0 || tempWindow < minWindow){
+                        //第一次
+                        minWindow = tempWindow;
+                        targetP1 = p1;
+                        targetP2 = p2;
+                    }
+                    p1++;
+                }
+            }
+        }
+        return targetP1 != -1 ? s.substring(targetP1, targetP2 + 1) : "";
+    }
 }
