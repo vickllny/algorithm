@@ -1139,14 +1139,14 @@ public class LeetcodeTests {
      */
     @Test
     public void test31(){
-//        String s = "barfoothefoobarman";
-//        String[] words = {"foo","bar"};
+        String s = "barfoothefoobarman";
+        String[] words = {"foo","bar"};
 //        String s = "wordgoodgoodgoodbestword";
 //        String[] words = {"word","good","best","word"};
 //        String s = "barfoofoobarthefoobarman";
 //        String[] words = {"bar","foo","the"};
-        String s = "wordgoodgoodgoodbestword";
-        String[] words = {"word","good","best","good"};
+//        String s = "wordgoodgoodgoodbestword";
+//        String[] words = {"word","good","best","good"};
         System.out.println(findSubstring(s, words));
     }
 
@@ -1178,7 +1178,7 @@ public class LeetcodeTests {
                         window.put(word, 0);
                     }
                     if(map.get(word) != null && window.get(word) < map.get(word)){
-                        count++;
+                        count--;
                     }
                 }
 
@@ -1192,7 +1192,7 @@ public class LeetcodeTests {
                     count++;
                 }
                 if(count == words.length){
-                    list.add(j - (word.length() - 1) * w_len);
+                    list.add(j - (words.length - 1) * w_len);
                 }
             }
         }
