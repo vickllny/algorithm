@@ -1302,4 +1302,29 @@ public class LeetcodeTests {
         }
         return targetP1 != -1 ? s.substring(targetP1, targetP2 + 1) : "";
     }
+
+
+    /**
+     * 最小覆盖子串
+     * https://leetcode.cn/problems/minimum-window-substring/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test33(){
+//        String s = "ADOBECODEBANC";
+//        String t = "ABC";
+//        String s = "a";
+//        String t = "aa";
+        String s = "ab";
+        String t = "b";
+        char[][] board = new char[9][9];
+        System.out.println(isValidSudoku(s, t));
+    }
+
+    static boolean isValidSudoku(char[][] board) {
+
+        char[][] row = new char[9][9];
+        for (int i = 0; i < board.length; i++) {
+            char[] chars = board[i];//行
+        }
+    }
 }
