@@ -1491,6 +1491,7 @@ public class LeetcodeTests {
         }
         return list;
     }
+
     /**
      * 旋转图像
      * https://leetcode.cn/problems/rotate-image/?envType=study-plan-v2&envId=top-interview-150
@@ -1522,4 +1523,42 @@ public class LeetcodeTests {
         }
     }
 
+    /**
+     * 矩阵置零
+     * https://leetcode.cn/problems/set-matrix-zeroes/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test36(){
+//        int[][] matrix = new int[][]{{1,1,1},{1,0,1},{1,1,1}};
+        int[][] matrix = new int[][]{{0,1,2,0},{3,4,5,2},{1,3,1,5}};
+        setZeroes(matrix);
+        System.out.println(Arrays.deepToString(matrix));
+//        System.out.println(3 >> 1);
+    }
+
+    static void setZeroes(int[][] matrix) {
+        // 一个简单的改进方案是使用 O(m + n) 的额外空间，但这仍然不是最好的解决方案。
+        Set<Integer> ySet = new HashSet<>();
+        Set<Integer> xSet = new HashSet<>();
+
+        int x_len = matrix.length;
+        int y_len = matrix[0].length;
+        for (int i = 0; i < x_len; i++) {
+            for (int j = 0; j < y_len; j++) {
+                if(matrix[i][j] == 0){
+                    ySet.add(j);
+                    xSet.add(i);
+                }
+            }
+        }
+        for (int i = 0; i < x_len; i++) {
+            for (int j = 0; j < y_len; j++) {
+                if(ySet.contains(j) || xSet.contains(i)){
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+
+        //TODO 能想出一个仅使用常量空间的解决方案吗？
+    }
 }
