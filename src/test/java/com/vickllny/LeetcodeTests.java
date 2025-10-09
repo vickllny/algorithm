@@ -1316,8 +1316,17 @@ public class LeetcodeTests {
 //        String t = "aa";
         String s = "ab";
         String t = "b";
-        char[][] board = new char[9][9];
-//        System.out.println(isValidSudoku(s, t));
+//        char[][] board = new char[][]{{'5','3','.','.','7','.','.','.','.'},{'6','.','.','1','9','5','.','.','.'},{'.','9','8','.','.','.','.','6','.'},{'8','.','.','.','6','.','.','.','3'},{'4','.','.','8','.','3','.','.','1'},{'7','.','.','.','2','.','.','.','6'},{'.','6','.','.','.','.','2','8','.'},{'.','.','.','4','1','9','.','.','5'},{'.','.','.','.','8','.','.','7','9'}};
+        char[][] board = new char[][]{{'8','3','.','.','7','.','.','.','.'}
+                ,{'6','.','.','1','9','5','.','.','.'}
+                ,{'.','9','8','.','.','.','.','6','.'}
+                ,{'8','.','.','.','6','.','.','.','3'}
+                ,{'4','.','.','8','.','3','.','.','1'}
+                ,{'7','.','.','.','2','.','.','.','6'}
+                ,{'.','6','.','.','.','.','2','8','.'}
+                ,{'.','.','.','4','1','9','.','.','5'}
+                ,{'.','.','.','.','8','.','.','7','9'}};
+        System.out.println(isValidSudoku(board));
         char c = '9';
         System.out.println(c);
         System.out.println((int) c);
@@ -1333,7 +1342,7 @@ public class LeetcodeTests {
                 if (c == '.') {
                     continue;
                 }
-                int index = c - 48;
+                int index = c - 49;
                 if (mark[index]) {
                     return false;
                 }
@@ -1348,7 +1357,7 @@ public class LeetcodeTests {
                 if (c == '.') {
                     continue;
                 }
-                int index = c - 48;
+                int index = c - 49;
                 if (mark[index]) {
                     return false;
                 }
@@ -1356,10 +1365,44 @@ public class LeetcodeTests {
             }
         }
         //九宫格
-        for (int i = 0; i < 3; i++) {
-
+        Map<String, Set<Character>> map = new HashMap<>();
+        for (int i = 0; i < board.length; i++) {
+            char[] chars = board[i];
+            for (int j = 0; j < chars.length; j++) {
+                char c = board[i][j];
+                if(c == '.'){
+                    continue;
+                }
+                Set<Character> set = map.computeIfAbsent(_key(i, j), v -> new HashSet<>());
+                if(!set.add(c)){
+                    return false;
+                }
+            }
         }
 
         return true;
+    }
+
+    static String _key(int i, int j){
+        if(i <= 2 && j <= 2){
+            return "1";
+        }else if(i > 2 && i <= 5 && j <= 2){
+            return "2";
+        }else if(i > 5 && i <= 8 && j <= 2){
+            return "3";
+        }else if(i <= 2 && j <= 5){
+            return "4";
+        }else if(i > 2 && i <= 5 && j <= 5){
+            return "5";
+        }else if(i > 5 && i <= 8 && j <= 5){
+            return "6";
+        }else if(i <= 2 && j <= 8){
+            return "7";
+        }else if(i > 2 && i <= 5 && j <= 8){
+            return "8";
+        }else if(i > 5 && i <= 8 && j <= 8){
+            return "9";
+        }
+        return "";
     }
 }
