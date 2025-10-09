@@ -1306,7 +1306,7 @@ public class LeetcodeTests {
 
     /**
      * 最小覆盖子串
-     * https://leetcode.cn/problems/minimum-window-substring/?envType=study-plan-v2&envId=top-interview-150
+     * https://leetcode.cn/problems/valid-sudoku/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
     public void test33(){
@@ -1317,14 +1317,49 @@ public class LeetcodeTests {
         String s = "ab";
         String t = "b";
         char[][] board = new char[9][9];
-        System.out.println(isValidSudoku(s, t));
+//        System.out.println(isValidSudoku(s, t));
+        char c = '9';
+        System.out.println(c);
+        System.out.println((int) c);
     }
 
     static boolean isValidSudoku(char[][] board) {
-
-        char[][] row = new char[9][9];
-        for (int i = 0; i < board.length; i++) {
-            char[] chars = board[i];//行
+        boolean[] mark = new boolean[9];
+        //横向
+        for (char[] chars : board) {
+            Arrays.fill(mark, false);
+            for (int j = 0; j < 9; j++) {
+                char c = chars[j];
+                if (c == '.') {
+                    continue;
+                }
+                int index = c - 48;
+                if (mark[index]) {
+                    return false;
+                }
+                mark[index] = true;
+            }
         }
+        //纵向
+        for (int i = 0; i < 9; i++) {
+            Arrays.fill(mark, false);
+            for (int j = 0; j < 9; j++) {
+                char c = board[j][i];
+                if (c == '.') {
+                    continue;
+                }
+                int index = c - 48;
+                if (mark[index]) {
+                    return false;
+                }
+                mark[index] = true;
+            }
+        }
+        //九宫格
+        for (int i = 0; i < 3; i++) {
+
+        }
+
+        return true;
     }
 }
