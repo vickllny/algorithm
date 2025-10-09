@@ -97,6 +97,24 @@ public class LeetcodeTests {
         arr[i] = arr[i] ^ arr[j];
     }
 
+    static void swap(int[][] arr ,int i, int j){
+        if(i == j){
+            return;
+        }
+        arr[i][j] = arr[i][j] ^ arr[j][i];
+        arr[j][i] = arr[i][j] ^ arr[j][i];
+        arr[i][j] = arr[i][j] ^ arr[j][i];
+    }
+
+    static void swap(int[][] arr ,int x1, int y1, int x2, int y2){
+        if(x1 == x2 && y1 == y2){
+            return;
+        }
+        arr[x1][y1] = arr[x1][y1] ^ arr[x2][y2];
+        arr[x2][y2] = arr[x1][y1] ^ arr[x2][y2];
+        arr[x1][y1] = arr[x1][y1] ^ arr[x2][y2];
+    }
+
     /**
      * 删除有序数组中的重复项
      * https://leetcode.cn/problems/remove-duplicates-from-sorted-array/?envType=study-plan-v2&envId=top-interview-150
@@ -1305,7 +1323,7 @@ public class LeetcodeTests {
 
 
     /**
-     * 最小覆盖子串
+     * 有效的数独
      * https://leetcode.cn/problems/valid-sudoku/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
@@ -1402,7 +1420,7 @@ public class LeetcodeTests {
 
 
     /**
-     * 最小覆盖子串
+     * 螺旋矩阵
      * https://leetcode.cn/problems/valid-sudoku/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
@@ -1473,4 +1491,35 @@ public class LeetcodeTests {
         }
         return list;
     }
+    /**
+     * 旋转图像
+     * https://leetcode.cn/problems/rotate-image/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test35(){
+//        int[][] matrix = new int[][]{{1,2,3},{4,5,6},{7,8,9}};
+        int[][] matrix = new int[][]{{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}};
+        rotate(matrix);
+        System.out.println(Arrays.deepToString(matrix));
+//        System.out.println(3 >> 1);
+    }
+
+    static void rotate(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        //对角线变换
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < i; j++) {
+                swap(matrix, i, j, j, i);
+            }
+        }
+        //左右变换 [0, 0] - [0, n - 1]
+        int nMid = n >> 1;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < nMid; j++) {
+                swap(matrix, i, j, i, n - 1 - j);
+            }
+        }
+    }
+
 }
