@@ -1650,5 +1650,161 @@ public class LeetcodeTests {
         }
     }
 
+    /**
+     * 赎金信
+     * https://leetcode.cn/problems/ransom-note/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test38(){
+        String ransomNote = "aa";
+        String magazine  = "aab";
+        System.out.println(canConstruct(ransomNote, magazine));
+    }
 
+    static boolean canConstruct(String ransomNote, String magazine) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < ransomNote.length(); i++) {
+            char c = ransomNote.charAt(i);
+            if(map.containsKey(c)){
+                map.put(c, map.get(c) + 1);
+            }else {
+                map.put(c, 1);
+            }
+        }
+
+        for (int i = 0; i < magazine.length(); i++) {
+            char c = magazine.charAt(i);
+            if(map.containsKey(c)){
+                map.put(c, map.get(c) - 1);
+                if(map.get(c) == 0){
+                    map.remove(c);
+                }
+            }
+        }
+
+        return map.isEmpty();
+    }
+
+    /**
+     * 同构字符串
+     * https://leetcode.cn/problems/isomorphic-strings/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test39(){
+        String s = "badc";
+        String t  = "baba";
+        System.out.println(isIsomorphic(s, t));
+    }
+
+    static boolean isIsomorphic(String s, String t) {
+        Map<Character, Character> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c1 = s.charAt(i);
+            char c2 = t.charAt(i);
+            if(map.containsKey(c1)){
+                if(map.get(c1) != c2){
+                    return false;
+                }
+            }else {
+                if(map.containsValue(c2)){
+                    return false;
+                }
+                map.put(c1, c2);
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 单词规律
+     * https://leetcode.cn/problems/word-pattern/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test40(){
+//        String pattern = "abba";
+//        String s  = "dog cat cat dog";
+//        String pattern = "abba";
+//        String s  = "dog cat cat fish";
+        String pattern = "aaaa";
+        String s  = "dog cat cat dog";
+        System.out.println(wordPattern(pattern, s));
+    }
+
+    static boolean wordPattern(String pattern, String s) {
+        Map<String, String> map = new HashMap<>();
+        String[] strings = s.split(" ");
+        if(pattern.length() != strings.length){
+            return false;
+        }
+        for (int i = 0; i < pattern.length(); i++) {
+            String s1 = pattern.substring(i, i + 1);
+            String s2 = strings[i];
+            if(map.containsKey(s1)){
+                if(!map.get(s1).equals(s2)){
+                    return false;
+                }
+            }else {
+                if(map.containsValue(s2)){
+                    return false;
+                }
+                map.put(s1, s2);
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * 效的字母异位词
+     * https://leetcode.cn/problems/valid-anagram/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test41(){
+        String s = "rat";
+        String t  = "car";
+        System.out.println(isAnagram(s, t));
+    }
+
+    static boolean isAnagram(String s, String t) {
+        if(s.length() != t.length()){
+            return false;
+        }
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if(map.containsKey(c)){
+                map.put(c, map.get(c) + 1);
+            }else {
+                map.put(c, 1);
+            }
+        }
+
+        for (int i = 0; i < s.length(); i++) {
+            char c = t.charAt(i);
+            if(!map.containsKey(c)){
+                return false;
+            }
+            map.put(c, map.get(c) - 1);
+            if(map.get(c) == 0){
+                map.remove(c);
+            }
+        }
+
+        return map.isEmpty();
+    }
+
+    /**
+     * 字母异位词分组
+     * https://leetcode.cn/problems/group-anagrams/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test42(){
+        String[] strs = {"rat"};
+        System.out.println(groupAnagrams(strs));
+    }
+
+    static List<List<String>> groupAnagrams(String[] strs) {
+
+    }
 }
+
