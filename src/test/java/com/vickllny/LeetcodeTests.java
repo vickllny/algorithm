@@ -1013,10 +1013,10 @@ public class LeetcodeTests {
     public void test26(){
         int[] numbers = {-1, 0};
         int target = -1;
-        System.out.println(Arrays.toString(twoSum(numbers, target)));
+        System.out.println(Arrays.toString(twoSum2(numbers, target)));
     }
 
-    static int[] twoSum(int[] numbers, int target) {
+    static int[] twoSum2(int[] numbers, int target) {
         int left = 0, right = numbers.length - 1;
         while (left < right){
             int val = numbers[left] + numbers[right];
@@ -1804,7 +1804,120 @@ public class LeetcodeTests {
     }
 
     static List<List<String>> groupAnagrams(String[] strs) {
-
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            char[] chars = str.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
+            map.computeIfAbsent(key, v -> new ArrayList<>()).add(str);
+        }
+        return new ArrayList<>(map.values());
     }
+
+    /**
+     * 两数之和
+     * https://leetcode.cn/problems/two-sum/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test43(){
+//        int[] nums = new int[]{2,7,11,15};
+//        int target = 9;
+//        int[] nums = new int[]{3, 2, 4};
+//        int target = 6;
+        int[] nums = new int[]{3, 3};
+        int target = 6;
+        System.out.println(Arrays.toString(twoSum(nums, target)));
+    }
+
+    static int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for (int i = 0; i < nums.length; ++i) {
+            if (map.containsKey(target - nums[i])) {
+                return new int[]{map.get(target - nums[i]), i};
+            }
+            map.put(nums[i], i);
+        }
+        return new int[0];
+    }
+
+    /**
+     * 快乐数
+     * https://leetcode.cn/problems/happy-number/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test44(){
+        int n = 19;
+        System.out.println(isHappy(n));
+    }
+
+    static boolean isHappy(int n) {
+        int slow = n, fast = n;
+        do {
+            slow = bitSquareSum(slow);
+            fast = bitSquareSum(fast);
+            fast = bitSquareSum(fast);
+        }while (slow != fast);
+
+        return slow == 1;
+    }
+
+    static int bitSquareSum(int n) {
+        int sum = 0;
+        while(n > 0)
+        {
+            int bit = n % 10;
+            sum += bit * bit;
+            n = n / 10;
+        }
+        return sum;
+    }
+
+    /**
+     * 存在重复元素 II
+     * https://leetcode.cn/problems/contains-duplicate-ii/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test45(){
+//        int[] nums = new int[] {1, 2, 3, 1};
+//        int k = 3;
+//        int[] nums = new int[] {1,0,1,1};
+//        int k = 1;
+        int[] nums = new int[] {1,2,3,1,2,3};
+        int k = 2;
+        System.out.println(containsNearbyDuplicate(nums, k));
+    }
+
+    static boolean containsNearbyDuplicate(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        int length = nums.length;
+        for (int i = 0; i < length; i++) {
+            int num = nums[i];
+            if (map.containsKey(num) && i - map.get(num) <= k) {
+                return true;
+            }
+            map.put(num, i);
+        }
+        return false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
