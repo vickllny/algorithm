@@ -1602,14 +1602,52 @@ public class LeetcodeTests {
     @Test
     public void test37(){
 //        int[][] board = new int[][]{{1,1,1},{1,0,1},{1,1,1}};
-        int[][] board = new int[][]{{0,1,2,0},{3,4,5,2},{1,3,1,5}};
+        int[][] board = new int[][] {{0,1,0},{0,0,1},{1,1,1},{0,0,0}};
         gameOfLife(board);
         System.out.println(Arrays.deepToString(board));
 //        System.out.println(3 >> 1);
     }
 
     static void gameOfLife(int[][] board) {
+        //标记 存活：2 - 0 死亡，3 - 1 存活
+        int rows = board.length, cols = board[0].length, ln = 0;
 
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                ln = 0;
+                //获取存活的邻居数量
+                for (int x = Math.max(i - 1, 0); x < i + 2 && x >= 0 && x <rows; x++) {
+                    for (int y = Math.max(j - 1, 0); y >= 0 && y < j + 2 && y < cols; y++) {
+                        if(x == i && y == j){
+                            continue;
+                        }
+                        if(board[x][y] > 0){
+                            ln++;
+                        }
+                    }
+                }
+
+                if(board[i][j] == 1){
+                    //活细胞
+                    if(ln > 3 || ln < 2){
+                        board[i][j] = 2;
+                    }else {
+                        board[i][j] = 3;
+                    }
+                }else if(ln == 3){
+                    board[i][j] = -1;
+                }
+            }
+        }
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if(board[i][j] == 3 || board[i][j] == -1){
+                    board[i][j] = 1;
+                }else if(board[i][j] == 2){
+                    board[i][j] = 0;
+                }
+            }
+        }
     }
 
 
