@@ -1538,27 +1538,79 @@ public class LeetcodeTests {
 
     static void setZeroes(int[][] matrix) {
         // 一个简单的改进方案是使用 O(m + n) 的额外空间，但这仍然不是最好的解决方案。
-        Set<Integer> ySet = new HashSet<>();
-        Set<Integer> xSet = new HashSet<>();
+//        Set<Integer> ySet = new HashSet<>();
+//        Set<Integer> xSet = new HashSet<>();
+//
+//        int x_len = matrix.length;
+//        int y_len = matrix[0].length;
+//        for (int i = 0; i < x_len; i++) {
+//            for (int j = 0; j < y_len; j++) {
+//                if(matrix[i][j] == 0){
+//                    ySet.add(j);
+//                    xSet.add(i);
+//                }
+//            }
+//        }
+//        for (int i = 0; i < x_len; i++) {
+//            for (int j = 0; j < y_len; j++) {
+//                if(ySet.contains(j) || xSet.contains(i)){
+//                    matrix[i][j] = 0;
+//                }
+//            }
+//        }
 
+        //TODO 能想出一个仅使用常量空间的解决方案吗？
+        boolean rowZero = false, colZero = false;
         int x_len = matrix.length;
         int y_len = matrix[0].length;
         for (int i = 0; i < x_len; i++) {
             for (int j = 0; j < y_len; j++) {
                 if(matrix[i][j] == 0){
-                    ySet.add(j);
-                    xSet.add(i);
+                    matrix[0][j] = matrix[i][0] = 0;
+                    if(j == 0){
+                        colZero = true;
+                    }
+                    if(i == 0){
+                        rowZero = true;
+                    }
                 }
             }
         }
-        for (int i = 0; i < x_len; i++) {
-            for (int j = 0; j < y_len; j++) {
-                if(ySet.contains(j) || xSet.contains(i)){
+
+        for (int i = 1; i < x_len; i++) {
+            for (int j = 1; j < y_len; j++) {
+                if(matrix[0][j] == 0 || matrix[i][0] == 0){
                     matrix[i][j] = 0;
                 }
             }
         }
 
-        //TODO 能想出一个仅使用常量空间的解决方案吗？
+
+        for (int i = 0; rowZero && i < y_len; i++) {
+            matrix[0][i] = 0;
+        }
+        for (int i = 0; colZero && i < x_len; i++) {
+            matrix[i][0] = 0;
+        }
+
     }
+
+    /**
+     * 生命游戏
+     * https://leetcode.cn/problems/game-of-life/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test37(){
+//        int[][] board = new int[][]{{1,1,1},{1,0,1},{1,1,1}};
+        int[][] board = new int[][]{{0,1,2,0},{3,4,5,2},{1,3,1,5}};
+        gameOfLife(board);
+        System.out.println(Arrays.deepToString(board));
+//        System.out.println(3 >> 1);
+    }
+
+    static void gameOfLife(int[][] board) {
+
+    }
+
+
 }
