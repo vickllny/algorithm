@@ -3,6 +3,8 @@ package com.vickllny;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 数组字符串相关的题
@@ -1933,11 +1935,73 @@ public class LeetcodeTests {
         return Math.max(len, cur);
     }
 
+    /**
+     * 汇总区间
+     * https://leetcode.cn/problems/summary-ranges/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test47(){
+//        int[] nums = new int[] {0,1,2,4,5,7};
+//        int[] nums = new int[] {0,2,3,4,6,8,9};
+        int[] nums = new int[] {0, 1};
+        System.out.println(summaryRanges(nums));
+    }
 
+    static List<String> summaryRanges(int[] nums) {
+        List<String> list = new ArrayList<>();
+        int length = nums.length;
+        int p = 0;
+        while (p < length){
+            int low = p;
+            do {
+                p++;
+            } while (p < length && nums[p] - nums[p - 1] == 1);
+            int high = p - 1;
+            String s = String.valueOf(nums[low]);
+            if(low < high){
+                s += "->" + nums[high];
+            }
+            list.add(s);
+        }
+        return list;
+    }
 
+    /**
+     * 合并区间
+     * https://leetcode.cn/problems/merge-intervals/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test48(){
+//        int[][] intervals = {{1,3},{15,18},{2,6},{8,10}};
+//        int[][] intervals = {{1,4},{4,5}};
+        int[][] intervals = {{4,7},{1,4}};
+        System.out.println(Arrays.deepToString(merge(intervals)));
+    }
 
-
-
+    static int[][] merge(int[][] intervals) {
+        //排序
+        Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
+        //结果
+        List<List<Integer>> list = new ArrayList<>();
+        int start = intervals[0][0], end = intervals[0][1], p = 1, len = intervals.length;
+        while (p < len){
+            int[] a = intervals[p];
+            if(a[0] > end){
+                list.add(Stream.of(start, end).collect(Collectors.toList()));
+                start = a[0];
+                end = a[1];
+            }else {
+                end = Math.max(a[1], end);
+            }
+            p++;
+        }
+        list.add(Stream.of(start, end).collect(Collectors.toList()));
+        int[][] ans = new int[list.size()][2];
+        for (int i = 0; i < list.size(); i++) {
+            ans[i] = new int[]{list.get(i).get(0), list.get(i).get(1)};
+        }
+        return ans;
+    }
 
 
 

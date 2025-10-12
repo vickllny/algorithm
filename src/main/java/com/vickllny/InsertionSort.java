@@ -1,5 +1,7 @@
 package com.vickllny;
 
+import java.util.Arrays;
+
 /**
  * O(N²)
  */
@@ -29,6 +31,6 @@ public class InsertionSort {
     public static void main(String[] args) {
         int[] arr = {17,11,33,69,1,0,-1,32,17,11,33,69};
         sort(arr);
-        System.out.println(arr);
+        System.out.println(Arrays.toString(arr));
     }
 }
