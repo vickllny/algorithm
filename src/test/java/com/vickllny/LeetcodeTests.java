@@ -1902,8 +1902,36 @@ public class LeetcodeTests {
     }
 
 
+    /**
+     * 最长连续序列
+     * https://leetcode.cn/problems/longest-consecutive-sequence/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test46(){
+        int[] nums = new int[] {100,4,200,1,3,2};
+//        int[] nums = new int[] {0,3,7,2,5,8,4,6,0,1};
+//        int[] nums = new int[] {1,0,1,2};
+        System.out.println(longestConsecutive(nums));
+    }
 
-
+    static int longestConsecutive(int[] nums) {
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+        Arrays.sort(nums);
+        int p = 1, len = 1, cur = 1;
+        while (p < nums.length){
+            int val = nums[p] - nums[p - 1];
+            if(val == 1){
+                cur++;
+            }else if(val > 1){
+                len = Math.max(len, cur);
+                cur = 1;
+            }
+            p++;
+        }
+        return Math.max(len, cur);
+    }
 
 
 
