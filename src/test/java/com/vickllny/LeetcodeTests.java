@@ -2052,7 +2052,18 @@ public class LeetcodeTests {
         return ans;
     }
 
-
+    /**
+     * 用最少数量的箭引爆气球
+     * https://leetcode.cn/problems/insert-interval/submissions/669999712/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test50(){
+//        int[][] intervals = {{1,3},{6,9}};
+//        int[] newInterval  = {2,5};
+        int[][] intervals = {{1,2},{3,5},{6,7},{8,10},{12,16}};
+        int[] newInterval  = {4,8};
+        System.out.println(Arrays.deepToString(insert(intervals, newInterval)));
+    }
 
 
 
