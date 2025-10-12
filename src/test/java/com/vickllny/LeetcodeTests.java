@@ -2003,9 +2003,54 @@ public class LeetcodeTests {
         return ans;
     }
 
+    /**
+     * 插入区间
+     * https://leetcode.cn/problems/insert-interval/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test49(){
+//        int[][] intervals = {{1,3},{6,9}};
+//        int[] newInterval  = {2,5};
+        int[][] intervals = {{1,2},{3,5},{6,7},{8,10},{12,16}};
+        int[] newInterval  = {4,8};
+        System.out.println(Arrays.deepToString(insert(intervals, newInterval)));
+    }
 
-
-
+    static int[][] insert(int[][] intervals, int[] newInterval) {
+        if(intervals == null || intervals.length == 0){
+            return new int[][]{newInterval};
+        }
+        List<List<Integer>> list = new ArrayList<>();
+        boolean merged = false; //0 - 未合并 1 - 半合并  2 - 已合并
+        for (int[] a : intervals) {
+            if (merged) {
+                list.add(Stream.of(a[0], a[1]).collect(Collectors.toList()));
+                continue;
+            }
+            //在a的右侧
+            if (a[1] < newInterval[0]) {
+                list.add(Stream.of(a[0], a[1]).collect(Collectors.toList()));
+            } else if (newInterval[1] < a[0]) { //在a的左侧
+                merged = true;
+                list.add(Stream.of(newInterval[0], newInterval[1]).collect(Collectors.toList()));
+                list.add(Stream.of(a[0], a[1]).collect(Collectors.toList()));
+            } else if (a[0] <= newInterval[0] && a[1] >= newInterval[1]) {
+                merged = true;
+                list.add(Stream.of(a[0], a[1]).collect(Collectors.toList()));
+            } else {
+                newInterval[0] = Math.min(a[0], newInterval[0]);
+                newInterval[1] = Math.max(a[1], newInterval[1]);
+            }
+        }
+        if(!merged){
+            list.add(Stream.of(newInterval[0], newInterval[1]).collect(Collectors.toList()));
+        }
+        int[][] ans = new int[list.size()][2];
+        for (int i = 0; i < list.size(); i++) {
+            ans[i] = new int[]{list.get(i).get(0), list.get(i).get(1)};
+        }
+        return ans;
+    }
 
 
 
