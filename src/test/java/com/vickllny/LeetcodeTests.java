@@ -2058,13 +2058,32 @@ public class LeetcodeTests {
      */
     @Test
     public void test50(){
-//        int[][] intervals = {{1,3},{6,9}};
-//        int[] newInterval  = {2,5};
-        int[][] intervals = {{1,2},{3,5},{6,7},{8,10},{12,16}};
-        int[] newInterval  = {4,8};
-        System.out.println(Arrays.deepToString(insert(intervals, newInterval)));
+//        int[][] points = {{10,16},{2,8},{1,6},{7,12}};
+//        int[][] points = {{1,2},{3,4},{5,6},{7,8}};
+        int[][] points = {{1,2},{2,3},{3,4},{4,5}};
+        System.out.println(findMinArrowShots(points));
     }
 
+    static int findMinArrowShots(int[][] points) {
+        //排序
+        Arrays.sort(points, Comparator.comparingInt(a -> a[0]));
+        //结果
+        int ans = 0, start = points[0][0], end = points[0][1], p = 1, len = points.length;
+        while (p < len){
+            int[] a = points[p];
+            if(a[0] <= end && start <= a[0]){
+                //相交
+                end = Math.min(end, a[1]);
+            }else {
+                //不相交
+                end = a[1];
+                ans++;
+            }
+            start = a[0];
+            p++;
+        }
+        return ++ans;
+    }
 
 
 
