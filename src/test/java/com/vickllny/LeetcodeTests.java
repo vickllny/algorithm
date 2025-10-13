@@ -2085,7 +2085,45 @@ public class LeetcodeTests {
         return ++ans;
     }
 
+    /**
+     * 有效的括号
+     * https://leetcode.cn/problems/valid-parentheses/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test51(){
+//        String s = "()";
+//        String s = "()[]{}";
+//        String s = "(]";
+        String s = "([])";
+//        String s = "([)]";
+        System.out.println(isValid(s));
+    }
 
-
+    static boolean isValid(String s) {
+        if(s.length() % 2 != 0){
+            return false;
+        }
+        Map<Character, Character> map = new HashMap<>();
+        map.put(')', '(');
+        map.put('}', '{');
+        map.put(']', '[');
+        Stack<Character> list = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if(c == '{' || c == '[' || c == '('){
+                list.add(c);
+                continue;
+            }
+            if(map.containsKey(c)){
+                if(list.isEmpty()){
+                    return false;
+                }
+                if(map.get(c) != list.pop()){
+                    return false;
+                }
+            }
+        }
+        return list.isEmpty();
+    }
 }
 
