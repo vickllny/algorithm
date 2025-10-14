@@ -2125,5 +2125,61 @@ public class LeetcodeTests {
         }
         return list.isEmpty();
     }
+
+    /**
+     * 简化路径
+     * https://leetcode.cn/problems/simplify-path/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test52(){
+//        String path = "/home/";
+//        String path = "/home//foo/";
+//        String path = "/home/user/Documents/../Pictures";
+//        String path = "/../";
+        String path = "/.../a/../b/c/../d/./";
+        System.out.println(simplifyPath(path));
+    }
+
+    static String simplifyPath(String path) {
+        if(path == null || path.isEmpty() || path.length() == 1){
+            return path;
+        }
+        Stack<String> stack = new Stack<>();
+
+        String[] strings = path.split("/");
+        for (String str : strings) {
+            if (str.isEmpty()) {
+                continue;
+            }
+            if (str.contains(".")) {
+                if (str.equals("..")) {
+                    if(stack.isEmpty()){
+                        continue;
+                    }
+                    stack.pop();
+                } else if (!str.equals(".")) {
+                    stack.add(str);
+                }
+            } else {
+                stack.add(str);
+            }
+        }
+
+        return stack.isEmpty() ? "/" : "/" + String.join("/", stack);
+    }
+
+    /**
+     * 简化路径
+     * https://leetcode.cn/problems/simplify-path/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test52(){
+//        String path = "/home/";
+//        String path = "/home//foo/";
+//        String path = "/home/user/Documents/../Pictures";
+//        String path = "/../";
+        String path = "/.../a/../b/c/../d/./";
+        System.out.println(simplifyPath(path));
+    }
 }
 
