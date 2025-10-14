@@ -3,6 +3,7 @@ package com.vickllny;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -2169,17 +2170,163 @@ public class LeetcodeTests {
     }
 
     /**
-     * 简化路径
-     * https://leetcode.cn/problems/simplify-path/description/?envType=study-plan-v2&envId=top-interview-150
+     * 最小栈
+     * https://leetcode.cn/problems/min-stack/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test52(){
-//        String path = "/home/";
-//        String path = "/home//foo/";
-//        String path = "/home/user/Documents/../Pictures";
-//        String path = "/../";
-        String path = "/.../a/../b/c/../d/./";
-        System.out.println(simplifyPath(path));
+    public void test53(){
+        MinStack minStack = new MinStack();
+        minStack.push(-2);
+        minStack.push(0);
+        minStack.push(-3);
+        minStack.getMin();   // 返回 -3.
+        minStack.pop();
+        minStack.top();      // 返回 0.
+        minStack.getMin();   // 返回 -2.
     }
+
+    class MinStack {
+
+        public MinStack() {
+            minStack.push(Integer.MAX_VALUE);
+        }
+
+        Deque<Integer> xStack = new LinkedList<>();
+        Deque<Integer> minStack = new LinkedList<>();
+
+        public void push(int val) {
+            xStack.push(val);
+            minStack.push(Math.min(minStack.peek(), val));
+        }
+
+        public void pop() {
+            xStack.pop();
+            minStack.pop();
+        }
+
+        public int top() {
+            return xStack.peek();
+        }
+
+        public int getMin() {
+            return minStack.peek();
+        }
+    }
+
+    /**
+     * 逆波兰表达式求值
+     * https://leetcode.cn/problems/min-stack/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test54(){
+//        String[] tokens = {"2","1","+","3","*"};
+//        String[] tokens = {"4","13","5","/","+"};
+//        String[] tokens = {"10","6","9","3","+","-11","*","/","*","17","+","5","+"};
+        String[] tokens = {"1", "4", "+", "5", "+", "2", "+", "3", "-", "6", "+", "8", "+"};
+        System.out.println(evalRPN(tokens));
+    }
+
+    static int evalRPN(String[] tokens) {
+        Deque<Integer> stack = new LinkedList<>();
+        Map<String, BiFunction<Integer, Integer, Integer>> map = new HashMap<>();
+        map.put("+", Integer::sum);
+        map.put("-", (a, b) -> a - b);
+        map.put("*", (a, b) -> a * b);
+        map.put("/", (a, b) -> a / b);
+        BiFunction<Integer, Integer, Integer> function = null;
+        for (String token : tokens) {
+            if((function = map.get(token)) != null){
+                Integer v2 = stack.pop();
+                Integer v1 = stack.pop();
+                stack.push(function.apply(v1, v2));
+            }else {
+                stack.push(Integer.valueOf(token));
+            }
+        }
+        return stack.pop();
+    }
+
+
+    /**
+     * 基本计算器
+     * https://leetcode.cn/problems/basic-calculator/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test55(){
+//        String[] tokens = {"2","1","+","3","*"};
+//        String[] tokens = {"4","13","5","/","+"};
+        String[] tokens = {"10","6","9","3","+","-11","*","/","*","17","+","5","+"};
+
+
+        String s = "(1+(4+5+2)-3)+(6+8)";
+        System.out.println(calculate(s));
+    }
+
+    static int calculate(String s) {
+
+        int res = 0;       // 当前结果
+        int sign = 1;      // 当前符号
+        Deque<Integer> stack = new ArrayDeque<>();
+        int n = s.length();
+
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c)) {
+                int num = 0;
+                while (i < n && Character.isDigit(s.charAt(i))) {
+                    num = num * 10 + (s.charAt(i) - '0');
+                    i++;
+                }
+                i--; // 回退一位
+                res += sign * num;
+            } else if (c == '+') {
+                sign = 1;
+            } else if (c == '-') {
+                sign = -1;
+            } else if (c == '(') {
+                stack.push(res);
+                stack.push(sign);
+                res = 0;
+                sign = 1;
+            } else if (c == ')') {
+                int prevSign = stack.pop();
+                int prevRes = stack.pop();
+                res = prevRes + prevSign * res;
+            }
+        }
+        return res;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
