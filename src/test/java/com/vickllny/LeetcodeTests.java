@@ -18,22 +18,22 @@ public class LeetcodeTests {
      * 合并2个数组
      */
     @Test
-    public void test(){
-        int[] nums1 = {-1,0,0,3,3,3,0,0,0};
-        int[] nums2 = {1,2,2};
+    public void test() {
+        int[] nums1 = {-1, 0, 0, 3, 3, 3, 0, 0, 0};
+        int[] nums2 = {1, 2, 2};
 
         int m = 6;
         int n = 3;
         mergeSortedArray(nums1, m, nums2, n);
     }
 
-    static void mergeSortedArray(int[] nums1, int m, int[] nums2, int n){
-        if(m == 0){
-            if(n != 0){
+    static void mergeSortedArray(int[] nums1, int m, int[] nums2, int n) {
+        if (m == 0) {
+            if (n != 0) {
                 System.arraycopy(nums2, 0, nums1, 0, n);
             }
             return;
-        }else if(n == 0){
+        } else if (n == 0) {
             return;
         }
 
@@ -52,11 +52,11 @@ public class LeetcodeTests {
 //        System.arraycopy(arr, 0, nums1, 0, m + n);
 
         //从后往前
-        int i = m - 1,j = n - 1, index = m + n - 1;
-        while (i >= 0 && j >= 0){
+        int i = m - 1, j = n - 1, index = m + n - 1;
+        while (i >= 0 && j >= 0) {
             nums1[index--] = nums1[i] >= nums2[j] ? nums1[i--] : nums2[j--];
         }
-        while (j >= 0){
+        while (j >= 0) {
             nums1[index--] = nums2[j--];
         }
     }
@@ -66,21 +66,21 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/remove-element/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test1(){
-        int[] nums = {3,2,2,3};
+    public void test1() {
+        int[] nums = {3, 2, 2, 3};
         int val = 3;
         System.out.println(removeElement(nums, val));
     }
 
     static int removeElement(int[] nums, int val) {
-        if(nums == null || nums.length == 0){
+        if (nums == null || nums.length == 0) {
             return 0;
         }
         int right = nums.length - 1;
         int i = 0;
-        while (i <= right){
-            if(nums[i] == val){
-                if(nums[right] == val){
+        while (i <= right) {
+            if (nums[i] == val) {
+                if (nums[right] == val) {
                     right--;
                     continue;
                 }
@@ -91,8 +91,8 @@ public class LeetcodeTests {
         return i;
     }
 
-    static void swap(int[] arr ,int i, int j){
-        if(i == j){
+    static void swap(int[] arr, int i, int j) {
+        if (i == j) {
             return;
         }
         arr[i] = arr[i] ^ arr[j];
@@ -100,8 +100,8 @@ public class LeetcodeTests {
         arr[i] = arr[i] ^ arr[j];
     }
 
-    static void swap(int[][] arr ,int i, int j){
-        if(i == j){
+    static void swap(int[][] arr, int i, int j) {
+        if (i == j) {
             return;
         }
         arr[i][j] = arr[i][j] ^ arr[j][i];
@@ -109,8 +109,8 @@ public class LeetcodeTests {
         arr[i][j] = arr[i][j] ^ arr[j][i];
     }
 
-    static void swap(int[][] arr ,int x1, int y1, int x2, int y2){
-        if(x1 == x2 && y1 == y2){
+    static void swap(int[][] arr, int x1, int y1, int x2, int y2) {
+        if (x1 == x2 && y1 == y2) {
             return;
         }
         arr[x1][y1] = arr[x1][y1] ^ arr[x2][y2];
@@ -123,18 +123,18 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/remove-duplicates-from-sorted-array/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test2(){
-        int[] nums = {1,2,2,3};
+    public void test2() {
+        int[] nums = {1, 2, 2, 3};
         System.out.println(removeDuplicates(nums));
     }
 
-    static int removeDuplicates(int[] nums){
-        if(nums == null || nums.length == 0){
+    static int removeDuplicates(int[] nums) {
+        if (nums == null || nums.length == 0) {
             return 0;
         }
         int i = 0, j = 1;
-        while (j < nums.length){
-            if(nums[i] == nums[j]){
+        while (j < nums.length) {
+            if (nums[i] == nums[j]) {
                 j++;
                 continue;
             }
@@ -148,24 +148,24 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/remove-duplicates-from-sorted-array-ii/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test3(){
-        int[] nums = {1,1,1,2,2,3};
+    public void test3() {
+        int[] nums = {1, 1, 1, 2, 2, 3};
         System.out.println(removeDuplicates1(nums));
     }
 
-    static int removeDuplicates1(int[] nums){
-        if(nums == null || nums.length == 0){
+    static int removeDuplicates1(int[] nums) {
+        if (nums == null || nums.length == 0) {
             return 0;
         }
         int i = 0, j = 1;
-        while (j < nums.length){
-            if(nums[i] == nums[j]){
-                if(i == 0){
+        while (j < nums.length) {
+            if (nums[i] == nums[j]) {
+                if (i == 0) {
                     i++;
                     j++;
                     continue;
                 }
-                if(nums[i] == nums[i - 1]){
+                if (nums[i] == nums[i - 1]) {
                     j++;
                     continue;
                 }
@@ -180,22 +180,22 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/majority-element/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test4(){
-        int[] nums = {3,3,4};
+    public void test4() {
+        int[] nums = {3, 3, 4};
         System.out.println(majorityElement(nums));
     }
 
     static int majorityElement(int[] nums) {
         Map<Integer, Integer> count = new HashMap<>();
         for (int num : nums) {
-            if(count.containsKey(num)){
+            if (count.containsKey(num)) {
                 count.put(num, count.get(num) + 1);
-            }else {
+            } else {
                 count.put(num, 1);
             }
         }
         Optional<Map.Entry<Integer, Integer>> first = count.entrySet().stream().sorted((entry, entry2) -> entry2.getValue().compareTo(entry.getValue())).findFirst();
-        if(first.isPresent()){
+        if (first.isPresent()) {
             return first.get().getKey();
         }
         return -1;
@@ -206,8 +206,8 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/rotate-array/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test5(){
-        int[] nums = {1,2,3};
+    public void test5() {
+        int[] nums = {1, 2, 3};
         int k = 4;
         rotate(nums, k);
     }
@@ -217,7 +217,7 @@ public class LeetcodeTests {
         int[] arr = new int[nums.length];
         k = k % nums.length;
         for (int i = 0; i < nums.length; i++) {
-            arr[i] =  nums[(Math.abs(nums.length - k + i)) % nums.length];
+            arr[i] = nums[(Math.abs(nums.length - k + i)) % nums.length];
         }
         System.arraycopy(arr, 0, nums, 0, nums.length);
         System.out.println("nums = " + Arrays.toString(nums) + ", k = " + k);
@@ -228,21 +228,21 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test6(){
-        int[] nums = {2,4,1};
+    public void test6() {
+        int[] nums = {2, 4, 1};
         System.out.println(maxProfit(nums));
     }
 
     static int maxProfit(int[] prices) {
-        if(prices == null || prices.length < 2){
+        if (prices == null || prices.length < 2) {
             return 0;
         }
         int minPrice = prices[0];
         int val = 0;
         for (int i = 1; i < prices.length; i++) {
-            if(prices[i] < minPrice){
+            if (prices[i] < minPrice) {
                 minPrice = prices[i];
-            }else if(prices[i] - minPrice > val){
+            } else if (prices[i] - minPrice > val) {
                 val = prices[i] - minPrice;
             }
         }
@@ -254,13 +254,13 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test7(){
-        int[] nums = {7,6,4,3,1};
+    public void test7() {
+        int[] nums = {7, 6, 4, 3, 1};
         System.out.println(maxProfit1(nums));
     }
 
     static int maxProfit1(int[] prices) {
-        if(prices == null || prices.length < 2){
+        if (prices == null || prices.length < 2) {
             return 0;
         }
         int minPrice = prices[0];
@@ -279,37 +279,37 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/jump-game/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test8(){
-        int[] nums = {3,2,1,0,4};
+    public void test8() {
+        int[] nums = {3, 2, 1, 0, 4};
         System.out.println(canJump(nums));
     }
 
     static boolean canJump(int[] nums) {
-        if(nums == null || nums.length == 0){
+        if (nums == null || nums.length == 0) {
             return false;
         }
-        if(nums.length == 1){
+        if (nums.length == 1) {
             return true;
         }
         //解法 1
         int index = 0;
-        while (true){
+        while (true) {
             int jump = index + nums[index];
-            if(jump == 0){
+            if (jump == 0) {
                 return false;
             }
             int temp = 0;
             int jumpIndex = -1;
             for (int i = index + 1; i < jump + 1; i++) {
-                if(i >= nums.length - 1){
+                if (i >= nums.length - 1) {
                     return true;
                 }
-                if(i + nums[i] > temp){
+                if (i + nums[i] > temp) {
                     temp = i + nums[i];
                     jumpIndex = i;
                 }
             }
-            if(jumpIndex == -1){
+            if (jumpIndex == -1) {
                 return false;
             }
             index = jumpIndex;
@@ -333,8 +333,8 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/jump-game-ii/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test9(){
-        int[] nums = {7,0,9,6,9,6,1,7,9,0,1,2,9,0,3};
+    public void test9() {
+        int[] nums = {7, 0, 9, 6, 9, 6, 1, 7, 9, 0, 1, 2, 9, 0, 3};
 //        int[] nums = {2,3,1,1,4};
 //        int[] nums = {2,3,0,1,4};
 //        int[] nums = {1,2,3};
@@ -342,19 +342,19 @@ public class LeetcodeTests {
     }
 
     static int jump(int[] nums) {
-        if(nums == null || nums.length == 0){
+        if (nums == null || nums.length == 0) {
             return 0;
         }
-        if(nums.length == 1){
+        if (nums.length == 1) {
             return 0;
         }
-        if(nums[0] >= nums.length){
+        if (nums[0] >= nums.length) {
             return 1;
         }
         int ans = 0, maxJump = 0, end = 0;
         for (int i = 0; i < nums.length - 1; i++) {
             maxJump = Math.max(maxJump, i + nums[i]);
-            if(i == end){
+            if (i == end) {
                 end = maxJump;
                 ans++;
             }
@@ -368,15 +368,15 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/h-index/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test10(){
-        int[] nums = {7,0,9,6,9,6,1,7,9,0,1,2,9,0,3};
+    public void test10() {
+        int[] nums = {7, 0, 9, 6, 9, 6, 1, 7, 9, 0, 1, 2, 9, 0, 3};
         System.out.println(hIndex(nums));
     }
 
     static int hIndex(int[] citations) {
         Arrays.sort(citations);
         int h = 0, i = citations.length - 1;
-        while (i >= 0 && citations[i] > h){
+        while (i >= 0 && citations[i] > h) {
             i--;
             h++;
         }
@@ -388,7 +388,7 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/insert-delete-getrandom-o1/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test11(){
+    public void test11() {
         final RandomizedSet set = new RandomizedSet();
 
         set.insert(1);
@@ -414,7 +414,7 @@ public class LeetcodeTests {
         }
 
         public boolean insert(int val) {
-            if(valueToIndex.containsKey(val)){
+            if (valueToIndex.containsKey(val)) {
                 return false;
             }
             values.add(val);
@@ -423,9 +423,9 @@ public class LeetcodeTests {
         }
 
         public boolean remove(int val) {
-            if(valueToIndex.containsKey(val)){
+            if (valueToIndex.containsKey(val)) {
                 int indexToRemove = valueToIndex.get(val);
-                if(indexToRemove == values.size() - 1 || values.size() == 1){
+                if (indexToRemove == values.size() - 1 || values.size() == 1) {
                     valueToIndex.remove(val);
                     values.remove(indexToRemove);
                     return true;
@@ -455,14 +455,14 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/product-of-array-except-self/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test12(){
+    public void test12() {
 //        int[] nums = {1,2,3,4};
-        int[] nums = {-1,1,0,-3,3};
+        int[] nums = {-1, 1, 0, -3, 3};
         System.out.println(Arrays.toString(productExceptSelf(nums)));
     }
 
     static int[] productExceptSelf(int[] nums) {
-        if(nums == null || nums.length == 1){
+        if (nums == null || nums.length == 1) {
             return nums;
         }
         int[] res = new int[nums.length];
@@ -480,16 +480,15 @@ public class LeetcodeTests {
     }
 
 
-
     /**
      * 加油站
      * https://leetcode.cn/problems/gas-station/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test13(){
+    public void test13() {
 //        int[] nums = {1,2,3,4};
-        int[] gas = {2,3,4};
-        int[] cost = {3,4,3};
+        int[] gas = {2, 3, 4};
+        int[] cost = {3, 4, 3};
         System.out.println(canCompleteCircuit(gas, cost));
     }
 
@@ -497,15 +496,15 @@ public class LeetcodeTests {
         int size = gas.length;
         for (int i = 0; i < size; ) {
             int j = i, left = 0;
-            while (j < size){
+            while (j < size) {
                 int k = (i + j) % size;
                 left += gas[k] - cost[k];
-                if(left < 0 ){
+                if (left < 0) {
                     break;
                 }
                 j++;
             }
-            if(j == size){
+            if (j == size) {
                 return i;
             }
             i += j + 1;
@@ -518,20 +517,20 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/candy/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test14(){
+    public void test14() {
 //        int[] ratings = {1,2,3,4};
-        int[] ratings = {1,0,0,1,2,1,3,2};
+        int[] ratings = {1, 0, 0, 1, 2, 1, 3, 2};
 //        2 1 1 2 3 1 3 2
         System.out.println(candy(ratings));
     }
 
     static int candy(int[] ratings) {
-        if(ratings == null || ratings.length == 0){
+        if (ratings == null || ratings.length == 0) {
             return 0;
         }
-        if(ratings.length == 1){
+        if (ratings.length == 1) {
             return 1;
-        }else if(ratings.length == 2){
+        } else if (ratings.length == 2) {
             return ratings[0] == ratings[1] ? 2 : 3;
         }
 
@@ -540,11 +539,11 @@ public class LeetcodeTests {
         int[] right = new int[ratings.length];
         //左侧
         for (int i = 1; i < ratings.length; i++) {
-            if(ratings[i] > ratings[i - 1]) left[i] = left[i - 1] + 1;
+            if (ratings[i] > ratings[i - 1]) left[i] = left[i - 1] + 1;
         }
         //右侧
         for (int i = ratings.length - 2; i >= 0; i--) {
-            if(ratings[i] > ratings[i + 1]) right[i] = right[i + 1] + 1;
+            if (ratings[i] > ratings[i + 1]) right[i] = right[i + 1] + 1;
         }
         int res = 0;
         for (int i = 0; i < ratings.length; i++) {
@@ -559,9 +558,9 @@ public class LeetcodeTests {
      * 解法：前缀和、后缀和
      */
     @Test
-    public void test15(){
+    public void test15() {
 //        int[] ratings = {0,1,0,2,1,0,1,3,2,1,2,1};
-        int[] ratings = {4,2,0,3,2,5};
+        int[] ratings = {4, 2, 0, 3, 2, 5};
         System.out.println(trap(ratings));
     }
 
@@ -589,7 +588,7 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/roman-to-integer/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test16(){
+    public void test16() {
         String s = "MCMXCIV";
         System.out.println(romanToInt(s));
     }
@@ -620,16 +619,16 @@ public class LeetcodeTests {
         int ans = 0;
         final char[] charArray = s.toCharArray();
         for (int i = 0; i < charArray.length; i++) {
-            char c =  charArray[i];
+            char c = charArray[i];
             final Integer val = symbolValues.get(c);
-            if(val == null){
+            if (val == null) {
                 continue;
             }
-            if(i < charArray.length - 1){
+            if (i < charArray.length - 1) {
                 final Integer val2 = symbolValues.get(charArray[i + 1]);
-                if(val < val2){
+                if (val < val2) {
                     ans -= val;
-                }else {
+                } else {
                     ans += val;
                 }
                 continue;
@@ -644,7 +643,7 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/integer-to-roman/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test17(){
+    public void test17() {
         int val = 500;
         System.out.println(intToRoman(val));
     }
@@ -655,65 +654,65 @@ public class LeetcodeTests {
         //M
         int c = tempVal / 1000;
         tempVal = tempVal % 1000;
-        for(int i = 0; i < c; i++){
+        for (int i = 0; i < c; i++) {
             s.append("M");
         }
         //D
-        if(tempVal >= 900){
+        if (tempVal >= 900) {
             s.append("CM");
             tempVal = tempVal % 900;
-        }else if(tempVal >= 400 && tempVal < 500){
+        } else if (tempVal >= 400 && tempVal < 500) {
             s.append("CD");
             tempVal = tempVal % 400;
-        }else {
+        } else {
             c = tempVal / 500;
             tempVal = tempVal % 500;
-            for(int i = 0; i < c; i++){
+            for (int i = 0; i < c; i++) {
                 s.append("D");
             }
         }
         //C
         c = tempVal / 100;
         tempVal = tempVal % 100;
-        for(int i = 0; i < c; i++){
+        for (int i = 0; i < c; i++) {
             s.append("C");
         }
         //L
-        if(tempVal >= 90){
+        if (tempVal >= 90) {
             s.append("XC");
             tempVal = tempVal % 90;
-        }else if(tempVal >= 40 && tempVal < 50){
+        } else if (tempVal >= 40 && tempVal < 50) {
             s.append("XL");
             tempVal = tempVal % 40;
-        }else {
+        } else {
             c = tempVal / 50;
             tempVal = tempVal % 50;
-            for(int i = 0; i < c; i++){
+            for (int i = 0; i < c; i++) {
                 s.append("L");
             }
         }
         //X
         c = tempVal / 10;
         tempVal = tempVal % 10;
-        for(int i = 0; i < c; i++){
+        for (int i = 0; i < c; i++) {
             s.append("X");
         }
         //V
-        if(tempVal == 9){
+        if (tempVal == 9) {
             s.append("IX");
             tempVal = tempVal % 9;
-        }else if(tempVal == 4){
+        } else if (tempVal == 4) {
             s.append("IV");
             tempVal = tempVal % 4;
-        }else {
+        } else {
             c = tempVal / 5;
             tempVal = tempVal % 5;
-            for(int i = 0; i < c; i++){
+            for (int i = 0; i < c; i++) {
                 s.append("V");
             }
         }
         //I
-        for(int i = 0; i < tempVal; i++){
+        for (int i = 0; i < tempVal; i++) {
             s.append("I");
         }
         return s.toString();
@@ -724,18 +723,18 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/length-of-last-word/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test18(){
+    public void test18() {
         String val = "Hello World";
         System.out.println(lengthOfLastWord(val));
     }
 
     static int lengthOfLastWord(String s) {
-        if(!s.contains(" ")){
+        if (!s.contains(" ")) {
             return s.length();
         }
         final String[] s1 = s.split(" ");
         for (int i = s1.length - 1; i >= 0; i--) {
-            if(s1[i].equals(" ")){
+            if (s1[i].equals(" ")) {
                 continue;
             }
             return s1[i].length();
@@ -748,16 +747,16 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/longest-common-prefix/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test19(){
-        String[] val = {"flower","flow","flight"};
+    public void test19() {
+        String[] val = {"flower", "flow", "flight"};
         System.out.println(longestCommonPrefix(val));
     }
 
     static String longestCommonPrefix(String[] strs) {
-        if(strs == null || strs.length == 0){
+        if (strs == null || strs.length == 0) {
             return "";
         }
-        if(strs.length == 1){
+        if (strs.length == 1) {
             return strs[0];
         }
         StringBuilder stringBuilder = new StringBuilder();
@@ -765,7 +764,7 @@ public class LeetcodeTests {
         for (int i = 0; i < charArray.length; i++) {
             char c = charArray[i];
             for (int j = 1; j < strs.length; j++) {
-                if(strs[j].length() -1 < i || strs[j].charAt(i) != c){
+                if (strs[j].length() - 1 < i || strs[j].charAt(i) != c) {
                     return stringBuilder.toString();
                 }
             }
@@ -779,26 +778,26 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/reverse-words-in-a-string/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test20(){
+    public void test20() {
         String s = "  hello world  ";
         System.out.println(reverseWords(s));
     }
 
     static String reverseWords(String s) {
-        if(s == null || s.isEmpty()){
+        if (s == null || s.isEmpty()) {
             return s;
         }
-        if(s.trim().isEmpty()){
+        if (s.trim().isEmpty()) {
             return s;
         }
         final String[] s1 = s.split(" ");
         StringBuilder sb = new StringBuilder();
         for (int i = s1.length - 1; i >= 0; i--) {
-            if(s1[i].isEmpty() || s1[i].equals(" ")){
+            if (s1[i].isEmpty() || s1[i].equals(" ")) {
                 continue;
             }
             sb.append(s1[i]);
-            if(i != 0){
+            if (i != 0) {
                 sb.append(" ");
             }
         }
@@ -810,30 +809,30 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/zigzag-conversion/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test21(){
+    public void test21() {
         String s = "PAYPALISHIRING";
         int numRows = 3;
         System.out.println(convert(s, numRows));
     }
 
     static String convert(String s, int numRows) {
-        if(numRows < 2){
+        if (numRows < 2) {
             return s;
         }
         boolean down = false; //向下
         String[] s1 = new String[numRows];
         final char[] charArray = s.toCharArray();
         for (int i = 0, row = 0; i < s.length(); i++) {
-            s1[row] = s1[row] == null ? String.valueOf(charArray[i]): s1[row] + charArray[i];
-            if(row == 0 || row == numRows - 1){
+            s1[row] = s1[row] == null ? String.valueOf(charArray[i]) : s1[row] + charArray[i];
+            if (row == 0 || row == numRows - 1) {
                 down = !down;
             }
-            row += down ? 1 : - 1;
+            row += down ? 1 : -1;
         }
 
         StringBuilder sb = new StringBuilder();
         for (final String string : s1) {
-            if(string != null){
+            if (string != null) {
                 sb.append(string);
             }
         }
@@ -845,7 +844,7 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/find-the-index-of-the-first-occurrence-in-a-string/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test22(){
+    public void test22() {
         String s = "PAYPALISHIRING";
         String numRows = "aaa";
         System.out.println(strStr(s, numRows));
@@ -860,10 +859,10 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/text-justification/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test23(){
+    public void test23() {
 //        String[] s = {"This", "is", "an", "example", "of", "text", "justification."};
 //        String[] s = {"What","must","be","acknowledgment","shall","be"};
-        String[] s = {"Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"};
+        String[] s = {"Science", "is", "what", "we", "understand", "well", "enough", "to", "explain", "to", "a", "computer.", "Art", "is", "everything", "else", "we", "do"};
         int maxWidth = 20;
         System.out.println(fullJustify(s, maxWidth));
     }
@@ -872,35 +871,35 @@ public class LeetcodeTests {
         List<String> list = new ArrayList<>();
         List<String> cur = new ArrayList<>();
         for (int i = 0, curWidth = 0; i < words.length; i++) {
-            if(words[i].length() + curWidth + cur.size() <= maxWidth){
+            if (words[i].length() + curWidth + cur.size() <= maxWidth) {
                 curWidth += words[i].length();
                 cur.add(words[i]);
-            }else {
+            } else {
                 list.add(fillSpace(cur, maxWidth, false));
                 cur = new ArrayList<>();
                 cur.add(words[i]);
                 curWidth = words[i].length();
             }
         }
-        list.add(fillSpace(cur, maxWidth, true ));
+        list.add(fillSpace(cur, maxWidth, true));
         return list;
     }
 
-    static String fillSpace(List<String> words, int maxWidth, boolean last){
+    static String fillSpace(List<String> words, int maxWidth, boolean last) {
         int curWidth = 0;
         final int lastIndex = words.size() - 1;
         for (int i = 0; i < words.size(); i++) {
-            if(i != lastIndex){
+            if (i != lastIndex) {
                 words.set(i, words.get(i) + " ");
             }
             curWidth += words.get(i).length();
         }
-        if(words.size() == 1 || last){
+        if (words.size() == 1 || last) {
             for (int i = curWidth; i < maxWidth; i++) {
                 words.set(lastIndex, words.get(lastIndex) + " ");
             }
-        }else {
-            for (int i = 0; curWidth++ < maxWidth ; i = (i + 1) % (lastIndex)) {
+        } else {
+            for (int i = 0; curWidth++ < maxWidth; i = (i + 1) % (lastIndex)) {
                 words.set(i, words.get(i) + " ");
             }
         }
@@ -911,10 +910,10 @@ public class LeetcodeTests {
         List<String> cur = new ArrayList<>();
         List<String> ans = new ArrayList<>();
         for (int i = 0, curWidth = 0; i < words.length; i++) {
-            if(words[i].length() + curWidth + cur.size() <= maxWidth){
+            if (words[i].length() + curWidth + cur.size() <= maxWidth) {
                 cur.add(words[i]);
                 curWidth += words[i].length();
-            }else {
+            } else {
                 ans.add(fillSpace1(cur, maxWidth, false));
                 cur = new ArrayList<>();
                 cur.add(words[i]);
@@ -926,22 +925,22 @@ public class LeetcodeTests {
     }
 
 
-    static String fillSpace1(List<String> words, int maxWidth, boolean last){
+    static String fillSpace1(List<String> words, int maxWidth, boolean last) {
         int curWidth = 0;
         final int lastIndex = words.size() - 1;
         for (int i = 0; i < words.size(); i++) {
-            if(i != lastIndex){
+            if (i != lastIndex) {
                 words.set(i, words.get(i) + " ");
             }
             curWidth += words.get(i).length();
         }
 
-        if(lastIndex == 0 || last){
+        if (lastIndex == 0 || last) {
             for (int i = curWidth; i < maxWidth; i++) {
                 words.set(lastIndex, words.get(lastIndex) + " ");
             }
-        }else {
-            for (int i = 0; curWidth++ < maxWidth ; i = (i + 1) % lastIndex) {
+        } else {
+            for (int i = 0; curWidth++ < maxWidth; i = (i + 1) % lastIndex) {
                 words.set(i, words.get(i) + " ");
             }
         }
@@ -954,7 +953,7 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/valid-palindrome/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test24(){
+    public void test24() {
         String s = "A man, a plan, a canal: Panama";
         System.out.println(isPalindrome(s));
     }
@@ -962,14 +961,14 @@ public class LeetcodeTests {
     static boolean isPalindrome(String s) {
         StringBuilder sb = new StringBuilder();
         for (final char c : s.toCharArray()) {
-            if(Character.isLetterOrDigit(c)){
+            if (Character.isLetterOrDigit(c)) {
                 sb.append(c);
             }
         }
         final int length = sb.length();
         int left = 0, right = length - 1;
-        while (left < right){
-            if(Character.toLowerCase(sb.charAt(left++)) != Character.toLowerCase(sb.charAt(right--))){
+        while (left < right) {
+            if (Character.toLowerCase(sb.charAt(left++)) != Character.toLowerCase(sb.charAt(right--))) {
                 return false;
             }
         }
@@ -981,25 +980,25 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/is-subsequence/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test25(){
+    public void test25() {
         String s = "abc";
         String t = "ahbgdc";
         System.out.println(isSubsequence(s, t));
     }
 
     boolean isSubsequence(String s, String t) {
-        if(s == null || s.isEmpty()){
+        if (s == null || s.isEmpty()) {
             return true;
         }
-        if(t == null || t.isEmpty()){
+        if (t == null || t.isEmpty()) {
             return false;
         }
         int p = 0;
         final int s_len = s.length();
         final int length = t.length();
         for (int i = 0; i < length; i++) {
-            if(s.charAt(p) == t.charAt(i)){
-                if(p == s_len - 1){
+            if (s.charAt(p) == t.charAt(i)) {
+                if (p == s_len - 1) {
                     return true;
                 }
                 p++;
@@ -1013,7 +1012,7 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test26(){
+    public void test26() {
         int[] numbers = {-1, 0};
         int target = -1;
         System.out.println(Arrays.toString(twoSum2(numbers, target)));
@@ -1021,13 +1020,13 @@ public class LeetcodeTests {
 
     static int[] twoSum2(int[] numbers, int target) {
         int left = 0, right = numbers.length - 1;
-        while (left < right){
+        while (left < right) {
             int val = numbers[left] + numbers[right];
-            if(val == target){
+            if (val == target) {
                 break;
-            }else if(val < target){
+            } else if (val < target) {
                 left++;
-            }else {
+            } else {
                 right--;
             }
         }
@@ -1040,19 +1039,19 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/container-with-most-water/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test27(){
+    public void test27() {
 //        int[] numbers = {1,8,6,2,5,4,8,3,7};
-        int[] numbers = {1,1};
+        int[] numbers = {1, 1};
         System.out.println(maxArea(numbers));
     }
 
     static int maxArea(int[] height) {
         int maxArea = 0, left = 0, right = height.length - 1;
-        while (left < right){
+        while (left < right) {
             maxArea = Math.max(Math.min(height[left], height[right]) * (right - left), maxArea);
-            if(height[left] <= height[right]){
+            if (height[left] <= height[right]) {
                 left++;
-            }else {
+            } else {
                 right--;
             }
         }
@@ -1065,9 +1064,9 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/3sum/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test28(){
+    public void test28() {
 //        int[] numbers = {1,8,6,2,5,4,8,3,7};
-        int[] numbers = {1,1};
+        int[] numbers = {1, 1};
         System.out.println(threeSum(numbers));
     }
 
@@ -1075,21 +1074,21 @@ public class LeetcodeTests {
         List<List<Integer>> list = new ArrayList<>();
         Arrays.sort(nums);
         for (int i = 0; i < nums.length; i++) {
-            if(i > 0 && nums[i] == nums[i - 1]) continue;
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
             int left = i + 1, right = nums.length - 1;
             int target = -nums[i];
-            while (left < right){
+            while (left < right) {
                 int tempVal = nums[left] + nums[right];
-                if(tempVal == target){
+                if (tempVal == target) {
                     final List<Integer> arrayList = Arrays.asList(nums[i], nums[left], nums[right]);
                     list.add(arrayList);
                     while (left < right && nums[left] == nums[left + 1]) left++;
                     while (left < right && nums[right] == nums[right - 1]) right--;
                     left++;
                     right--;
-                }else if(tempVal < target){
+                } else if (tempVal < target) {
                     left++;
-                }else {
+                } else {
                     right--;
                 }
             }
@@ -1102,9 +1101,9 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/minimum-size-subarray-sum/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test29(){
+    public void test29() {
 //        int[] numbers = {1,8,6,2,5,4,8,3,7};
-        int[] numbers = {1,4,4};
+        int[] numbers = {1, 4, 4};
         int target = 4;
         System.out.println(minSubArrayLen(target, numbers));
     }
@@ -1112,12 +1111,12 @@ public class LeetcodeTests {
     static int minSubArrayLen(int target, int[] nums) {
         int ans = 0;
         int count = 0, p1 = 0, p2 = 0;
-        while (p1 < nums.length && p2 < nums.length){
+        while (p1 < nums.length && p2 < nums.length) {
             count += nums[p2];
-            if(count >= target){
+            if (count >= target) {
                 ans = ans == 0 ? p2 - p1 + 1 : Math.min(p2 - p1 + 1, ans);
                 //向右收敛
-                while (p1 <= p2 && count - nums[p1] >= target){
+                while (p1 <= p2 && count - nums[p1] >= target) {
                     count -= nums[p1];
                     p1++;
                     ans = Math.min(p2 - p1 + 1, ans);
@@ -1133,7 +1132,7 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/longest-substring-without-repeating-characters/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test30(){
+    public void test30() {
 //        String s = "abcabcbb";
 //        String s = "bbbb";
         String s = "pwwkew";
@@ -1143,8 +1142,8 @@ public class LeetcodeTests {
     static int lengthOfLongestSubstring(String s) {
         int ans = 0, length = s.length(), p1 = 0, p2 = p1;
         Set<Character> set = new HashSet<>();
-        while (p1 < length){
-            while (p2 < length && set.add(s.charAt(p2))){
+        while (p1 < length) {
+            while (p2 < length && set.add(s.charAt(p2))) {
                 p2++;
                 ans = Math.max(ans, set.size());
             }
@@ -1159,9 +1158,9 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/substring-with-concatenation-of-all-words/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test31(){
+    public void test31() {
         String s = "barfoothefoobarman";
-        String[] words = {"foo","bar"};
+        String[] words = {"foo", "bar"};
 //        String s = "wordgoodgoodgoodbestword";
 //        String[] words = {"word","good","best","word"};
 //        String s = "barfoofoobarthefoobarman";
@@ -1175,9 +1174,9 @@ public class LeetcodeTests {
         //1.超时写法
         Map<String, Integer> map = new HashMap<>();
         for (String word : words) {
-            if(map.containsKey(word)){
+            if (map.containsKey(word)) {
                 map.put(word, map.get(word) + 1);
-            }else {
+            } else {
                 map.put(word, 1);
             }
         }
@@ -1191,28 +1190,28 @@ public class LeetcodeTests {
             Map<String, Integer> window = new HashMap<>();
             int count = 0;
             for (int j = i; j + w_len <= length; j += w_len) {
-                if(j - i >= words.length * w_len){
+                if (j - i >= words.length * w_len) {
                     String word = s.substring(j - words.length * w_len, j - words.length * w_len + w_len);
-                    if(window.containsKey(word)){
+                    if (window.containsKey(word)) {
                         window.put(word, window.get(word) - 1);
-                    }else {
+                    } else {
                         window.put(word, 0);
                     }
-                    if(map.get(word) != null && window.get(word) < map.get(word)){
+                    if (map.get(word) != null && window.get(word) < map.get(word)) {
                         count--;
                     }
                 }
 
                 String word = s.substring(j, j + w_len);
-                if(window.containsKey(word)){
+                if (window.containsKey(word)) {
                     window.put(word, window.get(word) + 1);
-                }else {
+                } else {
                     window.put(word, 1);
                 }
-                if(map.get(word) !=  null && window.get(word) <= map.get(word)){
+                if (map.get(word) != null && window.get(word) <= map.get(word)) {
                     count++;
                 }
-                if(count == words.length){
+                if (count == words.length) {
                     list.add(j - (words.length - 1) * w_len);
                 }
             }
@@ -1253,7 +1252,7 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/minimum-window-substring/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test32(){
+    public void test32() {
 //        String s = "ADOBECODEBANC";
 //        String t = "ABC";
 //        String s = "a";
@@ -1266,16 +1265,16 @@ public class LeetcodeTests {
     static String minWindow(String s, String t) {
         int t_len = t.length();
         int s_len = s.length();
-        if(s_len < t_len){
+        if (s_len < t_len) {
             return "";
         }
         Map<Character, Integer> map = new HashMap<>();
         Map<Character, Integer> window = new HashMap<>();
         for (int i = 0; i < t_len; i++) {
             char c = t.charAt(i);
-            if(map.containsKey(c)){
+            if (map.containsKey(c)) {
                 map.put(c, map.get(c) + 1);
-            }else {
+            } else {
                 map.put(c, 1);
                 window.put(c, 0);
             }
@@ -1284,34 +1283,34 @@ public class LeetcodeTests {
         int p1 = 0, minWindow = 0, count = 0, targetP1 = -1, targetP2 = -1;
         for (int p2 = 0; p2 < s_len; p2++) {
             char c = s.charAt(p2);
-            if(!window.containsKey(c)){
+            if (!window.containsKey(c)) {
                 continue;
             }
             window.put(c, window.get(c) + 1);
-            if(window.get(c) <= map.get(c)){
+            if (window.get(c) <= map.get(c)) {
                 //有效字符
                 count++;
             }
 
-            if(count == t_len){
+            if (count == t_len) {
                 int tempWindow = p2 - p1 + 1;
-                if(minWindow == 0 || tempWindow < minWindow){
+                if (minWindow == 0 || tempWindow < minWindow) {
                     //第一次
                     minWindow = tempWindow;
                     targetP1 = p1;
                     targetP2 = p2;
                 }
                 //移除第一个count
-                while (p1 <= p2 && count == t_len){
+                while (p1 <= p2 && count == t_len) {
                     char c1 = s.charAt(p1);
-                    if(window.containsKey(c1)){
-                        if(window.get(c1) <= map.get(c1)){
+                    if (window.containsKey(c1)) {
+                        if (window.get(c1) <= map.get(c1)) {
                             count--;
                         }
                         window.put(c1, window.get(c1) - 1);
                     }
                     tempWindow = p2 - p1 + 1;
-                    if(minWindow == 0 || tempWindow < minWindow){
+                    if (minWindow == 0 || tempWindow < minWindow) {
                         //第一次
                         minWindow = tempWindow;
                         targetP1 = p1;
@@ -1330,17 +1329,17 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/valid-sudoku/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test33(){
+    public void test33() {
 //        char[][] board = new char[][]{{'5','3','.','.','7','.','.','.','.'},{'6','.','.','1','9','5','.','.','.'},{'.','9','8','.','.','.','.','6','.'},{'8','.','.','.','6','.','.','.','3'},{'4','.','.','8','.','3','.','.','1'},{'7','.','.','.','2','.','.','.','6'},{'.','6','.','.','.','.','2','8','.'},{'.','.','.','4','1','9','.','.','5'},{'.','.','.','.','8','.','.','7','9'}};
-        char[][] board = new char[][]{{'8','3','.','.','7','.','.','.','.'}
-                ,{'6','.','.','1','9','5','.','.','.'}
-                ,{'.','9','8','.','.','.','.','6','.'}
-                ,{'8','.','.','.','6','.','.','.','3'}
-                ,{'4','.','.','8','.','3','.','.','1'}
-                ,{'7','.','.','.','2','.','.','.','6'}
-                ,{'.','6','.','.','.','.','2','8','.'}
-                ,{'.','.','.','4','1','9','.','.','5'}
-                ,{'.','.','.','.','8','.','.','7','9'}};
+        char[][] board = new char[][]{{'8', '3', '.', '.', '7', '.', '.', '.', '.'}
+                , {'6', '.', '.', '1', '9', '5', '.', '.', '.'}
+                , {'.', '9', '8', '.', '.', '.', '.', '6', '.'}
+                , {'8', '.', '.', '.', '6', '.', '.', '.', '3'}
+                , {'4', '.', '.', '8', '.', '3', '.', '.', '1'}
+                , {'7', '.', '.', '.', '2', '.', '.', '.', '6'}
+                , {'.', '6', '.', '.', '.', '.', '2', '8', '.'}
+                , {'.', '.', '.', '4', '1', '9', '.', '.', '5'}
+                , {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
         System.out.println(isValidSudoku(board));
         char c = '9';
         System.out.println(c);
@@ -1385,11 +1384,11 @@ public class LeetcodeTests {
             char[] chars = board[i];
             for (int j = 0; j < chars.length; j++) {
                 char c = board[i][j];
-                if(c == '.'){
+                if (c == '.') {
                     continue;
                 }
                 Set<Character> set = map.computeIfAbsent(_key(i, j), v -> new HashSet<>());
-                if(!set.add(c)){
+                if (!set.add(c)) {
                     return false;
                 }
             }
@@ -1398,24 +1397,24 @@ public class LeetcodeTests {
         return true;
     }
 
-    static String _key(int i, int j){
-        if(i <= 2 && j <= 2){
+    static String _key(int i, int j) {
+        if (i <= 2 && j <= 2) {
             return "1";
-        }else if(i > 2 && i <= 5 && j <= 2){
+        } else if (i > 2 && i <= 5 && j <= 2) {
             return "2";
-        }else if(i > 5 && i <= 8 && j <= 2){
+        } else if (i > 5 && i <= 8 && j <= 2) {
             return "3";
-        }else if(i <= 2 && j <= 5){
+        } else if (i <= 2 && j <= 5) {
             return "4";
-        }else if(i > 2 && i <= 5 && j <= 5){
+        } else if (i > 2 && i <= 5 && j <= 5) {
             return "5";
-        }else if(i > 5 && i <= 8 && j <= 5){
+        } else if (i > 5 && i <= 8 && j <= 5) {
             return "6";
-        }else if(i <= 2 && j <= 8){
+        } else if (i <= 2 && j <= 8) {
             return "7";
-        }else if(i > 2 && i <= 5 && j <= 8){
+        } else if (i > 2 && i <= 5 && j <= 8) {
             return "8";
-        }else if(i > 5 && i <= 8 && j <= 8){
+        } else if (i > 5 && i <= 8 && j <= 8) {
             return "9";
         }
         return "";
@@ -1427,9 +1426,9 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/valid-sudoku/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test34(){
+    public void test34() {
 //        int[][] matrix = new int[][]{{1,2,3},{4,5,6},{7,8,9}};
-        int[][] matrix = new int[][]{{1,2,3,4},{5,6,7,8},{9,10,11,12}};
+        int[][] matrix = new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
         System.out.println(spiralOrder(matrix));
     }
 
@@ -1443,42 +1442,42 @@ public class LeetcodeTests {
         //x 纵向， y 横向
         int x = 0, y = 0;
         List<Integer> list = new ArrayList<>();
-        while (count < m * n){
+        while (count < m * n) {
             //从左往右 - 横向
-            while (y < y2){
+            while (y < y2) {
                 list.add(matrix[x][y]);
                 count++;
                 y++;
             }
-            if(count == m * n){
+            if (count == m * n) {
                 break;
             }
             y--;
             x++;
             //右下
-            while (x < x2){
+            while (x < x2) {
                 list.add(matrix[x][y]);
                 count++;
                 x++;
             }
-            if(count == m * n){
+            if (count == m * n) {
                 break;
             }
             x--;
             y--;
             //从右往左
-            while (y >= y1){
+            while (y >= y1) {
                 list.add(matrix[x][y]);
                 count++;
                 y--;
             }
-            if(count == m * n){
+            if (count == m * n) {
                 break;
             }
             x--;
             y++;
             //从下往上
-            while (x > x1){
+            while (x > x1) {
                 list.add(matrix[x][y]);
                 count++;
                 x--;
@@ -1500,9 +1499,9 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/rotate-image/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test35(){
+    public void test35() {
 //        int[][] matrix = new int[][]{{1,2,3},{4,5,6},{7,8,9}};
-        int[][] matrix = new int[][]{{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}};
+        int[][] matrix = new int[][]{{5, 1, 9, 11}, {2, 4, 8, 10}, {13, 3, 6, 7}, {15, 14, 12, 16}};
         rotate(matrix);
         System.out.println(Arrays.deepToString(matrix));
 //        System.out.println(3 >> 1);
@@ -1531,9 +1530,9 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/set-matrix-zeroes/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test36(){
+    public void test36() {
 //        int[][] matrix = new int[][]{{1,1,1},{1,0,1},{1,1,1}};
-        int[][] matrix = new int[][]{{0,1,2,0},{3,4,5,2},{1,3,1,5}};
+        int[][] matrix = new int[][]{{0, 1, 2, 0}, {3, 4, 5, 2}, {1, 3, 1, 5}};
         setZeroes(matrix);
         System.out.println(Arrays.deepToString(matrix));
 //        System.out.println(3 >> 1);
@@ -1568,12 +1567,12 @@ public class LeetcodeTests {
         int y_len = matrix[0].length;
         for (int i = 0; i < x_len; i++) {
             for (int j = 0; j < y_len; j++) {
-                if(matrix[i][j] == 0){
+                if (matrix[i][j] == 0) {
                     matrix[0][j] = matrix[i][0] = 0;
-                    if(j == 0){
+                    if (j == 0) {
                         colZero = true;
                     }
-                    if(i == 0){
+                    if (i == 0) {
                         rowZero = true;
                     }
                 }
@@ -1582,7 +1581,7 @@ public class LeetcodeTests {
 
         for (int i = 1; i < x_len; i++) {
             for (int j = 1; j < y_len; j++) {
-                if(matrix[0][j] == 0 || matrix[i][0] == 0){
+                if (matrix[0][j] == 0 || matrix[i][0] == 0) {
                     matrix[i][j] = 0;
                 }
             }
@@ -1603,9 +1602,9 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/game-of-life/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test37(){
+    public void test37() {
 //        int[][] board = new int[][]{{1,1,1},{1,0,1},{1,1,1}};
-        int[][] board = new int[][] {{0,1,0},{0,0,1},{1,1,1},{0,0,0}};
+        int[][] board = new int[][]{{0, 1, 0}, {0, 0, 1}, {1, 1, 1}, {0, 0, 0}};
         gameOfLife(board);
         System.out.println(Arrays.deepToString(board));
 //        System.out.println(3 >> 1);
@@ -1619,34 +1618,34 @@ public class LeetcodeTests {
             for (int j = 0; j < cols; j++) {
                 ln = 0;
                 //获取存活的邻居数量
-                for (int x = Math.max(i - 1, 0); x < i + 2 && x >= 0 && x <rows; x++) {
+                for (int x = Math.max(i - 1, 0); x < i + 2 && x >= 0 && x < rows; x++) {
                     for (int y = Math.max(j - 1, 0); y >= 0 && y < j + 2 && y < cols; y++) {
-                        if(x == i && y == j){
+                        if (x == i && y == j) {
                             continue;
                         }
-                        if(board[x][y] > 0){
+                        if (board[x][y] > 0) {
                             ln++;
                         }
                     }
                 }
 
-                if(board[i][j] == 1){
+                if (board[i][j] == 1) {
                     //活细胞
-                    if(ln > 3 || ln < 2){
+                    if (ln > 3 || ln < 2) {
                         board[i][j] = 2;
-                    }else {
+                    } else {
                         board[i][j] = 3;
                     }
-                }else if(ln == 3){
+                } else if (ln == 3) {
                     board[i][j] = -1;
                 }
             }
         }
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if(board[i][j] == 3 || board[i][j] == -1){
+                if (board[i][j] == 3 || board[i][j] == -1) {
                     board[i][j] = 1;
-                }else if(board[i][j] == 2){
+                } else if (board[i][j] == 2) {
                     board[i][j] = 0;
                 }
             }
@@ -1658,9 +1657,9 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/ransom-note/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test38(){
+    public void test38() {
         String ransomNote = "aa";
-        String magazine  = "aab";
+        String magazine = "aab";
         System.out.println(canConstruct(ransomNote, magazine));
     }
 
@@ -1668,18 +1667,18 @@ public class LeetcodeTests {
         Map<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < ransomNote.length(); i++) {
             char c = ransomNote.charAt(i);
-            if(map.containsKey(c)){
+            if (map.containsKey(c)) {
                 map.put(c, map.get(c) + 1);
-            }else {
+            } else {
                 map.put(c, 1);
             }
         }
 
         for (int i = 0; i < magazine.length(); i++) {
             char c = magazine.charAt(i);
-            if(map.containsKey(c)){
+            if (map.containsKey(c)) {
                 map.put(c, map.get(c) - 1);
-                if(map.get(c) == 0){
+                if (map.get(c) == 0) {
                     map.remove(c);
                 }
             }
@@ -1693,9 +1692,9 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/isomorphic-strings/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test39(){
+    public void test39() {
         String s = "badc";
-        String t  = "baba";
+        String t = "baba";
         System.out.println(isIsomorphic(s, t));
     }
 
@@ -1704,12 +1703,12 @@ public class LeetcodeTests {
         for (int i = 0; i < s.length(); i++) {
             char c1 = s.charAt(i);
             char c2 = t.charAt(i);
-            if(map.containsKey(c1)){
-                if(map.get(c1) != c2){
+            if (map.containsKey(c1)) {
+                if (map.get(c1) != c2) {
                     return false;
                 }
-            }else {
-                if(map.containsValue(c2)){
+            } else {
+                if (map.containsValue(c2)) {
                     return false;
                 }
                 map.put(c1, c2);
@@ -1723,31 +1722,31 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/word-pattern/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test40(){
+    public void test40() {
 //        String pattern = "abba";
 //        String s  = "dog cat cat dog";
 //        String pattern = "abba";
 //        String s  = "dog cat cat fish";
         String pattern = "aaaa";
-        String s  = "dog cat cat dog";
+        String s = "dog cat cat dog";
         System.out.println(wordPattern(pattern, s));
     }
 
     static boolean wordPattern(String pattern, String s) {
         Map<String, String> map = new HashMap<>();
         String[] strings = s.split(" ");
-        if(pattern.length() != strings.length){
+        if (pattern.length() != strings.length) {
             return false;
         }
         for (int i = 0; i < pattern.length(); i++) {
             String s1 = pattern.substring(i, i + 1);
             String s2 = strings[i];
-            if(map.containsKey(s1)){
-                if(!map.get(s1).equals(s2)){
+            if (map.containsKey(s1)) {
+                if (!map.get(s1).equals(s2)) {
                     return false;
                 }
-            }else {
-                if(map.containsValue(s2)){
+            } else {
+                if (map.containsValue(s2)) {
                     return false;
                 }
                 map.put(s1, s2);
@@ -1762,33 +1761,33 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/valid-anagram/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test41(){
+    public void test41() {
         String s = "rat";
-        String t  = "car";
+        String t = "car";
         System.out.println(isAnagram(s, t));
     }
 
     static boolean isAnagram(String s, String t) {
-        if(s.length() != t.length()){
+        if (s.length() != t.length()) {
             return false;
         }
         Map<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            if(map.containsKey(c)){
+            if (map.containsKey(c)) {
                 map.put(c, map.get(c) + 1);
-            }else {
+            } else {
                 map.put(c, 1);
             }
         }
 
         for (int i = 0; i < s.length(); i++) {
             char c = t.charAt(i);
-            if(!map.containsKey(c)){
+            if (!map.containsKey(c)) {
                 return false;
             }
             map.put(c, map.get(c) - 1);
-            if(map.get(c) == 0){
+            if (map.get(c) == 0) {
                 map.remove(c);
             }
         }
@@ -1801,7 +1800,7 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/group-anagrams/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test42(){
+    public void test42() {
         String[] strs = {"rat"};
         System.out.println(groupAnagrams(strs));
     }
@@ -1822,7 +1821,7 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/two-sum/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test43(){
+    public void test43() {
 //        int[] nums = new int[]{2,7,11,15};
 //        int target = 9;
 //        int[] nums = new int[]{3, 2, 4};
@@ -1848,7 +1847,7 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/happy-number/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test44(){
+    public void test44() {
         int n = 19;
         System.out.println(isHappy(n));
     }
@@ -1859,15 +1858,14 @@ public class LeetcodeTests {
             slow = bitSquareSum(slow);
             fast = bitSquareSum(fast);
             fast = bitSquareSum(fast);
-        }while (slow != fast);
+        } while (slow != fast);
 
         return slow == 1;
     }
 
     static int bitSquareSum(int n) {
         int sum = 0;
-        while(n > 0)
-        {
+        while (n > 0) {
             int bit = n % 10;
             sum += bit * bit;
             n = n / 10;
@@ -1880,12 +1878,12 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/contains-duplicate-ii/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test45(){
+    public void test45() {
 //        int[] nums = new int[] {1, 2, 3, 1};
 //        int k = 3;
 //        int[] nums = new int[] {1,0,1,1};
 //        int k = 1;
-        int[] nums = new int[] {1,2,3,1,2,3};
+        int[] nums = new int[]{1, 2, 3, 1, 2, 3};
         int k = 2;
         System.out.println(containsNearbyDuplicate(nums, k));
     }
@@ -1910,24 +1908,24 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/longest-consecutive-sequence/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test46(){
-        int[] nums = new int[] {100,4,200,1,3,2};
+    public void test46() {
+        int[] nums = new int[]{100, 4, 200, 1, 3, 2};
 //        int[] nums = new int[] {0,3,7,2,5,8,4,6,0,1};
 //        int[] nums = new int[] {1,0,1,2};
         System.out.println(longestConsecutive(nums));
     }
 
     static int longestConsecutive(int[] nums) {
-        if(nums == null || nums.length == 0){
+        if (nums == null || nums.length == 0) {
             return 0;
         }
         Arrays.sort(nums);
         int p = 1, len = 1, cur = 1;
-        while (p < nums.length){
+        while (p < nums.length) {
             int val = nums[p] - nums[p - 1];
-            if(val == 1){
+            if (val == 1) {
                 cur++;
-            }else if(val > 1){
+            } else if (val > 1) {
                 len = Math.max(len, cur);
                 cur = 1;
             }
@@ -1941,10 +1939,10 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/summary-ranges/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test47(){
+    public void test47() {
 //        int[] nums = new int[] {0,1,2,4,5,7};
 //        int[] nums = new int[] {0,2,3,4,6,8,9};
-        int[] nums = new int[] {0, 1};
+        int[] nums = new int[]{0, 1};
         System.out.println(summaryRanges(nums));
     }
 
@@ -1952,14 +1950,14 @@ public class LeetcodeTests {
         List<String> list = new ArrayList<>();
         int length = nums.length;
         int p = 0;
-        while (p < length){
+        while (p < length) {
             int low = p;
             do {
                 p++;
             } while (p < length && nums[p] - nums[p - 1] == 1);
             int high = p - 1;
             String s = String.valueOf(nums[low]);
-            if(low < high){
+            if (low < high) {
                 s += "->" + nums[high];
             }
             list.add(s);
@@ -1972,10 +1970,10 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/merge-intervals/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test48(){
+    public void test48() {
 //        int[][] intervals = {{1,3},{15,18},{2,6},{8,10}};
 //        int[][] intervals = {{1,4},{4,5}};
-        int[][] intervals = {{4,7},{1,4}};
+        int[][] intervals = {{4, 7}, {1, 4}};
         System.out.println(Arrays.deepToString(merge(intervals)));
     }
 
@@ -1985,13 +1983,13 @@ public class LeetcodeTests {
         //结果
         List<List<Integer>> list = new ArrayList<>();
         int start = intervals[0][0], end = intervals[0][1], p = 1, len = intervals.length;
-        while (p < len){
+        while (p < len) {
             int[] a = intervals[p];
-            if(a[0] > end){
+            if (a[0] > end) {
                 list.add(Stream.of(start, end).collect(Collectors.toList()));
                 start = a[0];
                 end = a[1];
-            }else {
+            } else {
                 end = Math.max(a[1], end);
             }
             p++;
@@ -2009,16 +2007,16 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/insert-interval/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test49(){
+    public void test49() {
 //        int[][] intervals = {{1,3},{6,9}};
 //        int[] newInterval  = {2,5};
-        int[][] intervals = {{1,2},{3,5},{6,7},{8,10},{12,16}};
-        int[] newInterval  = {4,8};
+        int[][] intervals = {{1, 2}, {3, 5}, {6, 7}, {8, 10}, {12, 16}};
+        int[] newInterval = {4, 8};
         System.out.println(Arrays.deepToString(insert(intervals, newInterval)));
     }
 
     static int[][] insert(int[][] intervals, int[] newInterval) {
-        if(intervals == null || intervals.length == 0){
+        if (intervals == null || intervals.length == 0) {
             return new int[][]{newInterval};
         }
         List<List<Integer>> list = new ArrayList<>();
@@ -2043,7 +2041,7 @@ public class LeetcodeTests {
                 newInterval[1] = Math.max(a[1], newInterval[1]);
             }
         }
-        if(!merged){
+        if (!merged) {
             list.add(Stream.of(newInterval[0], newInterval[1]).collect(Collectors.toList()));
         }
         int[][] ans = new int[list.size()][2];
@@ -2058,10 +2056,10 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/insert-interval/submissions/669999712/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test50(){
+    public void test50() {
 //        int[][] points = {{10,16},{2,8},{1,6},{7,12}};
 //        int[][] points = {{1,2},{3,4},{5,6},{7,8}};
-        int[][] points = {{1,2},{2,3},{3,4},{4,5}};
+        int[][] points = {{1, 2}, {2, 3}, {3, 4}, {4, 5}};
         System.out.println(findMinArrowShots(points));
     }
 
@@ -2070,12 +2068,12 @@ public class LeetcodeTests {
         Arrays.sort(points, Comparator.comparingInt(a -> a[0]));
         //结果
         int ans = 0, start = points[0][0], end = points[0][1], p = 1, len = points.length;
-        while (p < len){
+        while (p < len) {
             int[] a = points[p];
-            if(a[0] <= end && start <= a[0]){
+            if (a[0] <= end && start <= a[0]) {
                 //相交
                 end = Math.min(end, a[1]);
-            }else {
+            } else {
                 //不相交
                 end = a[1];
                 ans++;
@@ -2091,7 +2089,7 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/valid-parentheses/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test51(){
+    public void test51() {
 //        String s = "()";
 //        String s = "()[]{}";
 //        String s = "(]";
@@ -2101,7 +2099,7 @@ public class LeetcodeTests {
     }
 
     static boolean isValid(String s) {
-        if(s.length() % 2 != 0){
+        if (s.length() % 2 != 0) {
             return false;
         }
         Map<Character, Character> map = new HashMap<>();
@@ -2111,15 +2109,15 @@ public class LeetcodeTests {
         Stack<Character> list = new Stack<>();
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            if(c == '{' || c == '[' || c == '('){
+            if (c == '{' || c == '[' || c == '(') {
                 list.add(c);
                 continue;
             }
-            if(map.containsKey(c)){
-                if(list.isEmpty()){
+            if (map.containsKey(c)) {
+                if (list.isEmpty()) {
                     return false;
                 }
-                if(map.get(c) != list.pop()){
+                if (map.get(c) != list.pop()) {
                     return false;
                 }
             }
@@ -2132,7 +2130,7 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/simplify-path/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test52(){
+    public void test52() {
 //        String path = "/home/";
 //        String path = "/home//foo/";
 //        String path = "/home/user/Documents/../Pictures";
@@ -2142,7 +2140,7 @@ public class LeetcodeTests {
     }
 
     static String simplifyPath(String path) {
-        if(path == null || path.isEmpty() || path.length() == 1){
+        if (path == null || path.isEmpty() || path.length() == 1) {
             return path;
         }
         Stack<String> stack = new Stack<>();
@@ -2154,7 +2152,7 @@ public class LeetcodeTests {
             }
             if (str.contains(".")) {
                 if (str.equals("..")) {
-                    if(stack.isEmpty()){
+                    if (stack.isEmpty()) {
                         continue;
                     }
                     stack.pop();
@@ -2174,7 +2172,7 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/min-stack/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test53(){
+    public void test53() {
         MinStack minStack = new MinStack();
         minStack.push(-2);
         minStack.push(0);
@@ -2218,7 +2216,7 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/min-stack/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test54(){
+    public void test54() {
 //        String[] tokens = {"2","1","+","3","*"};
 //        String[] tokens = {"4","13","5","/","+"};
 //        String[] tokens = {"10","6","9","3","+","-11","*","/","*","17","+","5","+"};
@@ -2235,11 +2233,11 @@ public class LeetcodeTests {
         map.put("/", (a, b) -> a / b);
         BiFunction<Integer, Integer, Integer> function = null;
         for (String token : tokens) {
-            if((function = map.get(token)) != null){
+            if ((function = map.get(token)) != null) {
                 Integer v2 = stack.pop();
                 Integer v1 = stack.pop();
                 stack.push(function.apply(v1, v2));
-            }else {
+            } else {
                 stack.push(Integer.valueOf(token));
             }
         }
@@ -2252,10 +2250,10 @@ public class LeetcodeTests {
      * https://leetcode.cn/problems/basic-calculator/description/?envType=study-plan-v2&envId=top-interview-150
      */
     @Test
-    public void test55(){
+    public void test55() {
 //        String[] tokens = {"2","1","+","3","*"};
 //        String[] tokens = {"4","13","5","/","+"};
-        String[] tokens = {"10","6","9","3","+","-11","*","/","*","17","+","5","+"};
+        String[] tokens = {"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"};
 
 
         String s = "(1+(4+5+2)-3)+(6+8)";
@@ -2297,36 +2295,230 @@ public class LeetcodeTests {
         return res;
     }
 
+    /**
+     * 环形链表
+     * https://leetcode.cn/problems/linked-list-cycle/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test56() {
+
+    }
 
 
+    boolean hasCycle(ListNode head) {
+        if(head == null || head.next == null){
+            return false;
+        }
+        ListNode p1 = head, p2 = p1.next;
+        while (p1 != null && p2 != null){
+            if(p1 == p2){
+                return true;
+            }
+            p1 = p1.next;
+            p2 = p2.next;
+            if(p2 == null){
+                break;
+            }
+            p2 = p2.next;
+        }
+        return false;
+    }
 
+    static class ListNode {
+        int val;
+        ListNode next;
 
+        ListNode() {}
 
+        ListNode(int x) {
+            val = x;
+            next = null;
+        }
 
+        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            ListNode cur = this;
+            while (cur != null){
+                sb.append(cur.val);
+                if((cur = cur.next) != null){
+                    sb.append(",");
+                }
+            }
+            return sb.toString();
+        }
+    }
 
+    static ListNode construct(int[] nums){
+        ListNode node = new ListNode(nums[0]);
+        ListNode root = node;
+        for (int i = 1; i < nums.length; i++) {
+            node.next = new ListNode(nums[i]);
+            node = node.next;
+        }
+        return root;
+    }
 
+    /**
+     * 两数相加
+     * https://leetcode.cn/problems/add-two-numbers/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test57() {
+//        int[] l1 = {2,4,3};
+//        int[] l1 = {9,9,9,9,9,9,9};
+        int[] l1 = {0};
 
+//        int[] l2 = {5,6,4};
+//        int[] l2 = {9,9,9,9};
+        int[] l2 = {0};
+        System.out.println(addTwoNumbers(construct(l1), construct(l2)));
+    }
 
+    static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        int j = 0;
+        ListNode p1 = l1, p2 = l2;
+        ListNode node = null, root = null;
+        while (p1 != null && p2 != null){
+            int sum = p1.val + p2.val + j;
+            int val = sum % 10;
+            j = sum / 10 > 0 ? 1 : 0;
 
+            p1 = p1.next;
+            p2 = p2.next;
 
+            if(node == null){
+                root = node = new ListNode(val);
+                continue;
+            }
+            node.next = new ListNode(val);
+            node = node.next;
+        }
 
+        while (p1 != null){
+            int sum = p1.val + j;
+            int val = sum % 10;
+            j = sum / 10 > 0 ? 1 : 0;
 
+            p1 = p1.next;
 
+            if(node == null){
+                node = new ListNode(val);
+                continue;
+            }
 
+            node.next = new ListNode(val);
+            node = node.next;
+        }
 
+        while (p2 != null){
+            int sum = p2.val + j;
+            int val = sum % 10;
+            j = sum / 10 > 0 ? 1 : 0;
 
+            p2 = p2.next;
 
+            if(node == null){
+                node = new ListNode(val);
+                continue;
+            }
 
+            node.next = new ListNode(val);
+            node = node.next;
+        }
+        if(j == 1){
+            node.next = new ListNode(j);
+        }
+        return root;
+    }
 
+    /**
+     * 合并两个有序链表
+     * https://leetcode.cn/problems/merge-two-sorted-lists/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test58() {
+        int[] l1 = {1,2,4};
+        int[] l2 = {1,3,4};
+        System.out.println(mergeTwoLists(construct(l1), construct(l2)));
+    }
 
+    static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode root = null, node = null, node1 = list1, node2 = list2;
+        if(node1 == null && list2 == null){
+            return null;
+        }else if(node1 == null){
+            return list2;
+        }else if(list2 == null){
+            return list1;
+        }
 
+        while (node1 != null && node2 != null){
+            int val1 = node1.val;
+            int val2 = node2.val;
+            if(val1 <= val2){
+                if(node == null){
+                    root = node = new ListNode(val1);
+                }else {
+                    node.next = new ListNode(val1);
+                    node = node.next;
+                }
+                node1 = node1.next;
+            }else {
+                if(node == null){
+                    root = node = new ListNode(val2);
+                }else {
+                    node.next = new ListNode(val2);
+                    node = node.next;
+                }
+                node2 = node2.next;
+            }
+        }
 
+        while (node1 != null){
+            int val1 = node1.val;
+            node.next = new ListNode(val1);
+            node = node.next;
+            node1 = node1.next;
+        }
 
+        while (node2 != null){
+            int val1 = node2.val;
+            node.next = new ListNode(val1);
+            node = node.next;
+            node2 = node2.next;
+        }
 
+        return root;
+    }
 
+    static class Node {
+        int val;
+        Node next;
+        Node random;
 
+        public Node(int val) {
+            this.val = val;
+            this.next = null;
+            this.random = null;
+        }
+    }
 
+    /**
+     * 随机链表的复制
+     * https://leetcode.cn/problems/copy-list-with-random-pointer/description/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test59() {
+        int[] l1 = {1,2,4};
+        int[] l2 = {1,3,4};
+        System.out.println(copyRandomList(construct(l1), construct(l2)));
+    }
 
+    static Node copyRandomList(Node head) {
+
+    }
 }
 
