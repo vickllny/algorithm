@@ -2504,6 +2504,57 @@ public class LeetcodeTests {
             this.next = null;
             this.random = null;
         }
+
+        @Override
+        public String toString() {
+            Map<Node, Integer> map = new HashMap<>();
+            Node cur = this;
+            int cnt = 0;
+            while (cur != null){
+                map.put(cur, cnt++);
+                cur = cur.next;
+            }
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("[");
+            cur = this;
+            while (cur != null){
+                sb.append("[").append(cur.val).append(",")
+                        .append(cur.random == null ? null : map.get(cur.random))
+                        .append("]");
+                if((cur = cur.next) != null){
+                    sb.append(", ");
+                }
+            }
+            sb.append("]");
+            return sb.toString();
+        }
+    }
+
+    static Node constructNode(Integer[][] nums){
+
+        List<Node> list = new ArrayList<>();
+        Node node = new Node(nums[0][0]);
+        list.add(node);
+        Node root = node;
+        for (int i = 1; i < nums.length; i++) {
+            node.next = new Node(nums[i][0]);
+            list.add(node.next);
+            node = node.next;
+        }
+        node = root;
+        int c = 0;
+        while (node != null){
+            Integer random = nums[c][1];
+            if(random != null && random < list.size()){
+                node.random = list.get(random);
+            }
+            c++;
+            node = node.next;
+        }
+
+
+        return root;
     }
 
     /**
@@ -2512,13 +2563,24 @@ public class LeetcodeTests {
      */
     @Test
     public void test59() {
-        int[] l1 = {1,2,4};
-        int[] l2 = {1,3,4};
-        System.out.println(copyRandomList(construct(l1), construct(l2)));
+        Integer[][] l1 = {{7,null},{13,0},{11,4},{10,2},{1,0}};
+        Node node = constructNode(l1);
+        System.out.println(copyRandomList(node));
     }
 
-    static Node copyRandomList(Node head) {
 
+    static Map<Node, Node> cachedNode = new HashMap<Node, Node>();
+    static Node copyRandomList(Node head) {
+        if (head == null) {
+            return null;
+        }
+        if (!cachedNode.containsKey(head)) {
+            Node headNew = new Node(head.val);
+            cachedNode.put(head, headNew);
+            headNew.next = copyRandomList(head.next);
+            headNew.random = copyRandomList(head.random);
+        }
+        return cachedNode.get(head);
     }
 }
 
