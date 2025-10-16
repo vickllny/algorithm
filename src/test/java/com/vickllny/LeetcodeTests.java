@@ -2582,5 +2582,228 @@ public class LeetcodeTests {
         }
         return cachedNode.get(head);
     }
+
+    /**
+     * 反转链表 II
+     * https://leetcode.cn/problems/reverse-linked-list-ii/?envType=study-plan-v2&envId=top-interview-150
+     */
+    @Test
+    public void test60() {
+        int[] l1 = {1,2,3,4,5};
+        int left = 2;
+        int right = 4;
+//        int[] l1 = {5};
+//        int left = 1;
+//        int right = 1;
+        ListNode node = construct(l1);
+        System.out.println(reverseBetween(node, left, right));
+    }
+
+    ListNode reverseBetween(ListNode head, int left, int right) {
+        if (left == right) {
+            return head;
+        }
+        ListNode vHead = new ListNode(-1);
+        vHead.next = head;
+
+        ListNode prev = vHead;
+        for (int i = 0; i < left - 1; i++) {
+            prev = prev.next;
+        }
+
+        ListNode cur = prev.next;
+
+        for (int i = 0; i < right - left; i++) {
+            ListNode next = cur.next;
+            cur.next = next.next;
+            next.next = prev.next;
+            prev.next = next;
+        }
+
+        return vHead.next;
+    }
+
+    /**
+     * K 个一组翻转链表
+     * https://leetcode.cn/problems/reverse-nodes-in-k-group/description/?envType=study-plan-v2&envId=top-interview-150
+     **/
+    @Test
+    public void test61() {
+        int[] arr = {1,2,3,4,5};
+        int k = 3;
+        System.out.println(reverseKGroup(construct(arr), k));
+    }
+
+    static ListNode reverseKGroup(ListNode head, int k) {
+        if(k == 1){
+            return head;
+        }
+        ListNode vHead = new ListNode();
+        vHead.next = head;
+
+        ListNode start = vHead, end = vHead;
+        while (true){
+            for (int i = 0; i < k && end != null; i++) {
+                end = end.next;
+            }
+            if(end == null){
+                break;
+            }
+            ListNode startNext = start.next, endNext = end.next;
+
+            end.next = null;
+            start.next = reverse(start.next);
+            startNext.next = endNext;
+
+            start = end = startNext;
+        }
+
+        return vHead.next;
+    }
+
+    /**
+     * 翻转链表
+     * @param head
+     * @return
+     */
+    static ListNode reverse(ListNode head){
+        ListNode cur = head, prev = null;
+        while (cur != null){
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        return prev;
+    }
+
+    /**
+     * 删除链表的倒数第 N 个结点
+     * https://leetcode.cn/problems/remove-nth-node-from-end-of-list/description/?envType=study-plan-v2&envId=top-interview-150
+     **/
+    @Test
+    public void test62() {
+        int[] arr = {1,2,3,4,5};
+        int k = 2;
+        System.out.println(removeNthFromEnd(construct(arr), k));
+    }
+
+    ListNode removeNthFromEnd(ListNode head, int n) {
+        return null;
+    }
+
+
+    /**
+     * 文链表
+     * https://leetcode.cn/problems/remove-nth-node-from-end-of-list/description/?envType=study-plan-v2&envId=top-interview-150
+     **/
+    @Test
+    public void test_234() {
+        int[] arr = {1,2,2,1};
+        System.out.println(isPalindrome(construct(arr)));
+    }
+
+    boolean isPalindrome(ListNode head) {
+//        Deque<ListNode> stack = new LinkedList<>();
+//        ListNode cur = head;
+        //简单做法
+//        while (cur != null){
+//            stack.push(cur);
+//            cur = cur.next;
+//        }
+
+        //快慢指针
+//        Deque<ListNode> stack = new LinkedList<>();
+//        ListNode cur = head;
+//        ListNode p1 = head, p2 = head;
+//        while (p2 != null){
+//            if((p2 = p2.next) == null || (p2 = p2.next) == null){
+//                while (p1 != null){
+//                    stack.push(p1);
+//                    p1 = p1.next;
+//                }
+//                break;
+//            }
+//            p1 = p1.next;
+//        }
+//
+//        cur = head;
+//        while (cur != null && !stack.isEmpty()){
+//            if(cur.val != stack.pop().val){
+//                return false;
+//            }
+//            cur = cur.next;
+//        }
+//        return true;
+
+
+        //空间复杂度 O(1) 写法
+        ListNode p1 = head, p2 = head;
+
+        while (p2.next != null){
+            p2 = p2.next;
+            if(p2.next != null){
+                p2 = p2.next;
+                p1 = p1.next;
+            }
+        }
+
+        ListNode startNode = p1.next;
+
+
+        p1.next = null;
+        ListNode node = reverseNode(startNode);
+
+        ListNode pp1 = head, pp2 = node;
+        while (pp1 != null && pp2 != null && pp1 != pp2){
+            if(pp1.val != pp2.val){
+                return false;
+            }
+            pp1 = pp1.next;
+            pp2 = pp2.next;
+        }
+
+        //还原
+        p1.next = reverseNode(node);
+
+        return true;
+    }
+
+    ListNode reverseNode(ListNode head){
+        ListNode cur = head, prev = null;
+        while (cur != null){
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        return prev;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
