@@ -2570,17 +2570,52 @@ public class LeetcodeTests {
 
 
     static Map<Node, Node> cachedNode = new HashMap<Node, Node>();
+
     static Node copyRandomList(Node head) {
         if (head == null) {
             return null;
         }
-        if (!cachedNode.containsKey(head)) {
-            Node headNew = new Node(head.val);
-            cachedNode.put(head, headNew);
-            headNew.next = copyRandomList(head.next);
-            headNew.random = copyRandomList(head.random);
+        //hash表方式
+//        if (!cachedNode.containsKey(head)) {
+//            Node headNew = new Node(head.val);
+//            cachedNode.put(head, headNew);
+//            headNew.next = copyRandomList(head.next);
+//            headNew.random = copyRandomList(head.random);
+//        }
+//        return cachedNode.get(head);
+        //不使用额外空间方式
+        //1.将新增节点插入到原始链表中
+        Node cur = head, curCopy = null, next = null;
+        while (cur != null){
+            next = cur.next;
+            curCopy = new Node(cur.val);
+            curCopy.next = next;
+            cur.next = curCopy;
+            cur = next;
         }
-        return cachedNode.get(head);
+        //2.处理random
+        cur = head;
+        Node random = null;
+        while (cur != null){
+            random = cur.random;
+            curCopy = cur.next;
+            next = cur.next.next;
+            curCopy.random = random == null ? null : random.next;
+            cur = next;
+        }
+
+        //3.分离原链表
+        Node ans = head.next;
+        cur = head;
+        while (cur != null){
+            next = cur.next.next;
+            curCopy = cur.next;
+            cur.next = next;
+            curCopy.next = next == null ? null : next.next;
+            cur = next;
+        }
+
+        return ans;
     }
 
     /**
@@ -2694,7 +2729,7 @@ public class LeetcodeTests {
 
 
     /**
-     * 文链表
+     * 回文链表
      * https://leetcode.cn/problems/remove-nth-node-from-end-of-list/description/?envType=study-plan-v2&envId=top-interview-150
      **/
     @Test
@@ -2780,10 +2815,34 @@ public class LeetcodeTests {
         return prev;
     }
 
+    /**
+     * 相交链表
+     * https://leetcode.cn/problems/intersection-of-two-linked-lists/description/
+     **/
+    @Test
+    public void test_160() {
+        int[] arr = {4,1,8,4,5};
+        int[] arr1 = {5,6,1,8,4,5};
+        System.out.println(getIntersectionNode(construct(arr), construct(arr1)));
+    }
 
-
-
-
+    static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        //hash表
+        Set<ListNode> hash = new HashSet<>();
+        ListNode cur = headA;
+        while (cur != null){
+            hash.add(cur);
+            cur = cur.next;
+        }
+        cur = headB;
+        while (cur != null){
+            if(hash.contains(cur)){
+                return cur;
+            }
+            cur = cur.next;
+        }
+        return null;
+    }
 
 
 
