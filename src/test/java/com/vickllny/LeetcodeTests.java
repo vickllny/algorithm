@@ -2849,7 +2849,7 @@ public class LeetcodeTests {
 //        }
 //        return null;
 
-        //如果可能有环也可能没有环写法
+        //如果可能有环也可能没有环写法 时间: O(N) 空间 O(N)
         Set<ListNode> hash = new HashSet<>();
         ListNode cur = headA;
         while (cur != null){
