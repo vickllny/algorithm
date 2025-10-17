@@ -2821,26 +2821,56 @@ public class LeetcodeTests {
      **/
     @Test
     public void test_160() {
-        int[] arr = {4,1,8,4,5};
+        int[] arr = {4,1};
         int[] arr1 = {5,6,1,8,4,5};
-        System.out.println(getIntersectionNode(construct(arr), construct(arr1)));
+        ListNode node = construct(arr);
+        ListNode node1 = construct(arr1);
+        node.next.next = node1.next.next.next;
+        System.out.println(getIntersectionNode(node, node1));
     }
 
     static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         //hash表
+//        Set<ListNode> hash = new HashSet<>();
+//        ListNode cur = headA;
+//        while (cur != null){
+//            if (!hash.add(cur)) {
+//                //有环
+//                break;
+//            }
+//            cur = cur.next;
+//        }
+//        cur = headB;
+//        while (cur != null){
+//            if(hash.contains(cur)){
+//                return cur;
+//            }
+//            cur = cur.next;
+//        }
+//        return null;
+
+        //如果可能有环也可能没有环写法
         Set<ListNode> hash = new HashSet<>();
         ListNode cur = headA;
         while (cur != null){
-            hash.add(cur);
+            if (!hash.add(cur)) {
+                //有环
+                break;
+            }
             cur = cur.next;
         }
+        Set<ListNode> hash2 = new HashSet<>();
         cur = headB;
         while (cur != null){
+            if(!hash2.add(cur)){
+                break;
+            }
             if(hash.contains(cur)){
                 return cur;
             }
             cur = cur.next;
         }
+
         return null;
     }
 
