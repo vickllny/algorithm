@@ -2890,16 +2890,24 @@ public class LeetcodeTests {
 
     class LRUCache {
 
-        public LRUCache(int capacity) {
 
+        private final LinkedHashMap<Integer, Integer> map;
+
+        public LRUCache(int capacity) {
+            map = new LinkedHashMap<Integer, Integer>(capacity, 1, true) {
+                @Override
+                protected boolean removeEldestEntry(final Map.Entry<Integer, Integer> eldest) {
+                    return size() > capacity;
+                }
+            };
         }
 
         public int get(int key) {
-
+            return map.getOrDefault(key, -1);
         }
 
         public void put(int key, int value) {
-
+            map.put(key, value);
         }
     }
 
