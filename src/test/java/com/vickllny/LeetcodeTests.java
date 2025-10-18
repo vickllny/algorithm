@@ -2718,15 +2718,190 @@ public class LeetcodeTests {
      **/
     @Test
     public void test62() {
-        int[] arr = {1,2,3,4,5};
-        int k = 2;
+//        int[] arr = {1,2,3,4,5};
+//        int k = 2;
+        int[] arr = {1,2};
+        int k = 1;
         System.out.println(removeNthFromEnd(construct(arr), k));
     }
 
     ListNode removeNthFromEnd(ListNode head, int n) {
-        return null;
+        List<ListNode> list = new ArrayList<>();
+        ListNode cur = head;
+        while(cur != null){
+            list.add(cur);
+            cur = cur.next;
+        }
+
+        int delIndex = list.size() - n;
+        if(delIndex == 0){
+            return head.next;
+        }else {
+            list.get(delIndex - 1).next = delIndex < list.size() - 1 ? list.get(delIndex + 1) : null;
+        }
+        return head;
     }
 
+    /**
+     * 删除排序链表中的重复元素 II
+     * https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii/?envType=study-plan-v2&envId=top-interview-150
+     **/
+    @Test
+    public void test63() {
+//        int[] arr = {1,2,3,3,4,4,5};
+//        int[] arr = {1,1,1,2,3};
+        int[] arr = {1,1};
+        System.out.println(deleteDuplicates(construct(arr)));
+    }
+
+    static ListNode deleteDuplicates(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode dummy = new ListNode();
+        dummy.next = head;
+        ListNode p1 = head, p2 = head.next, prev = dummy;
+        while (p2 != null){
+            if(p1.val != p2.val){
+                if(p1.next == p2){
+                    //相邻
+                    prev = prev.next;
+                    p1 = p1.next;
+                }else {
+                    prev.next = p1 = p2;
+                }
+            }else if(p2.next == null){
+                prev.next = null;
+            }
+            p2 = p2.next;
+        }
+        return dummy.next;
+    }
+
+    /**
+     * 旋转链表
+     * https://leetcode.cn/problems/rotate-list/?envType=study-plan-v2&envId=top-interview-150
+     **/
+    @Test
+    public void test64() {
+//        int[] arr = {1,2,3,4,5};
+//        int k  = 2;
+        int[] arr = {0,1,2};
+        int k  = 4;
+        System.out.println(rotateRight(construct(arr), k));
+    }
+
+    static ListNode rotateRight(ListNode head, int k) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        int count = 0;
+        //TODO 是否有环?
+        ListNode cur = head;
+        while (true){
+            count++;
+            //将最后一个节点链接到头结点形成环
+            if(cur.next == null){
+                cur.next = head;
+                break;
+            }
+            cur = cur.next;
+        }
+        int move = count - (k % count);
+        for (int i = 0; i < move; i++) {
+            cur = cur.next;
+        }
+        ListNode newHead = cur.next;
+        cur.next = null;
+        return newHead;
+    }
+
+    /**
+     * 分隔链表
+     * https://leetcode.cn/problems/partition-list/description/?envType=study-plan-v2&envId=top-interview-150
+     **/
+    @Test
+    public void test65() {
+//        int[] arr = {1,4,3,2,5,2};
+//        int k  = 3;
+//        int[] arr = {2,1};
+//        int k  = 2;
+//        int[] arr = {1,2,3};
+//        int k  = 4;
+        int[] arr = {2,0,4,1,3,1,4,0,3};
+        int k  = 4;
+        System.out.println(partition(construct(arr), k));
+    }
+
+    static ListNode partition(ListNode head, int x) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode dummy = new ListNode(), p1 = head, p2 = head.next;
+        dummy.next = head;
+        if(head.val >= x){
+            while (p2 != null){
+                if(p2.val < x){
+                    ListNode next = p2.next;
+                    p1.next = null;
+
+                    dummy.next = p2;
+                    p2.next = head;
+                    p1.next = next;
+                    p2 = next;
+                    break;
+                }
+                p1 = p1.next;
+                p2 = p2.next;
+            }
+        }else {
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+
+        ListNode end =  dummy.next;
+        while (p2 != null){
+            if(p2.val < x && p1.val >= x){
+                ListNode next = p2.next, next1 = end.next;
+                end.next = p2;
+                p2.next = next1;
+                end = end.next;
+                p1.next = next;
+                p2 = next;
+                continue;
+            }
+            if(end.next.val < x){
+                end = end.next;
+            }
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+        return dummy.next;
+    }
+
+    /**
+     * LRU 缓存
+     * https://leetcode.cn/problems/lru-cache/description/?envType=study-plan-v2&envId=top-interview-150
+     **/
+    @Test
+    public void test66() {
+
+    }
+
+    class LRUCache {
+
+        public LRUCache(int capacity) {
+
+        }
+
+        public int get(int key) {
+
+        }
+
+        public void put(int key, int value) {
+
+        }
+    }
 
     /**
      * 回文链表
@@ -2863,6 +3038,7 @@ public class LeetcodeTests {
         cur = headB;
         while (cur != null){
             if(!hash2.add(cur)){
+                //有环
                 break;
             }
             if(hash.contains(cur)){
@@ -2873,6 +3049,14 @@ public class LeetcodeTests {
 
         return null;
         //TODO 时间 O(N)  空间 O(1)
+        //1. 找出2个链表的入环节点，查找方式如下
+        //1.1 使用hash表 空间: O(N) 时间 O(N)
+        //1.2 使用快慢指针，如果有环，则快慢指针一定相遇，相遇时将快指针重新指向head节点，快慢指针同时向后遍历（快慢指针每次均走一步），再次相遇的节点即入环节点
+
+        //2. 如果2个链表的入环节点都不存在，则首先判断2个链表的最后一个节点内存地址是否相同，如果不同直接返回，如果相同则计算出2个链表长度的差值，
+        //   ，长链表从头结点跳到 差值 数量的节点作为开始节点，然后短链表的head节点作为开始节点，一次向后遍历，找到第一个相同的节点直接返回即可
+
+        //3. 如果一个有环一个没有环则一定不相交
     }
 
 
