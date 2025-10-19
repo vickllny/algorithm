@@ -64,12 +64,17 @@ public class TreeNode {
         }
         Deque<TreeNode> stack = new LinkedList<>();
         TreeNode cur = root;
-        while (!stack.isEmpty() || cur != null){
+        stack.push(cur);
+        while (!stack.isEmpty()){
+            cur = stack.pop();
             if(cur != null){
-                //TODO https://www.bilibili.com/video/BV13g41157hK/?spm_id_from=333.1391.0.0&p=7&vd_source=240260c8cdca141b2447105a672fe65e 1:09:09
+                System.out.print(cur.val + " ");
+                //先右后左
+                stack.push(cur.right);
+                stack.push(cur.left);
             }
         }
-
+        System.out.print(" ");
 
     }
 
@@ -123,6 +128,7 @@ public class TreeNode {
 
         preOrderRecur(root);
         System.out.println(" ");
+        preOrderUnRecur(root);
     }
 
 }
