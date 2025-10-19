@@ -2911,6 +2911,106 @@ public class LeetcodeTests {
         }
     }
 
+
+
+    /************************   二叉树   ***********************/
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {}
+        TreeNode(int val) { this.val = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+
+
+    }
+
+    /**
+     * 二叉树的最大深度
+     * https://leetcode.cn/problems/maximum-depth-of-binary-tree/description/?envType=study-plan-v2&envId=top-interview-150
+     **/
+    @Test
+    public void test_104() {
+//        TreeNode root = new TreeNode(3);//        root.left = new TreeNode(9);
+//        root.right = new TreeNode(20);
+//        root.right.left = new TreeNode(15);
+//        root.right.right = new TreeNode(7);
+
+        TreeNode root = new TreeNode(1);
+        root.right = new TreeNode(2);
+        System.out.println(maxDepth(root));
+    }
+
+    int maxDepth(TreeNode root) {
+        if(root == null){
+            return 0;
+        }
+        int len = 1;
+        len += Math.max(maxDepth(root.left), maxDepth(root.right));
+        return len;
+    }
+
+    /**
+     * 相同的树
+     * https://leetcode.cn/problems/same-tree/description/?envType=study-plan-v2&envId=top-interview-150
+     **/
+    @Test
+    public void test_100() {
+//        TreeNode root = new TreeNode(1);
+//        root.left = new TreeNode(2);
+//        root.right = new TreeNode(3);
+//
+//        TreeNode root1 = new TreeNode(1);
+//        root1.left = new TreeNode(2);
+//        root1.right = new TreeNode(3);
+
+//        TreeNode root = new TreeNode(1);
+//        root.left = new TreeNode(2);
+
+//        TreeNode root1 = new TreeNode(1);
+//        root1.right = new TreeNode(2);
+
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(1);
+
+        TreeNode root1 = new TreeNode(1);
+        root1.left = new TreeNode(1);
+        root1.right = new TreeNode(2);
+
+        System.out.println(isSameTree(root, root1));
+    }
+
+    boolean isSameTree(TreeNode p, TreeNode q) {
+        if(p == null && q == null){
+            return true;
+        } else if (p == null || q == null) {
+            return false;
+        }else {
+            return q.val == p.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        }
+    }
+
+    /**
+     * 翻转二叉树
+     * https://leetcode.cn/problems/invert-binary-tree/description/?envType=study-plan-v2&envId=top-interview-150
+     **/
+    @Test
+    public void test_226() {
+
+    }
+
+
+    static TreeNode invertTree(TreeNode root) {
+        if(root == null){
+            return null;
+        }
+        TreeNode left = root.left, right = root.right;
+    }
     /**
      * 回文链表
      * https://leetcode.cn/problems/remove-nth-node-from-end-of-list/description/?envType=study-plan-v2&envId=top-interview-150
