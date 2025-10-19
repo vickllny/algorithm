@@ -2926,6 +2926,28 @@ public class LeetcodeTests {
             this.right = right;
         }
 
+        @Override
+        public String toString() {
+            //广度优先遍历（Breadth-First Search, BFS）
+            List<String> list = new ArrayList<>();
+            Deque<TreeNode> queue = new LinkedList<>();
+            queue.offer(this);
+
+            while (!queue.isEmpty()){
+                int size = queue.size();
+                for (int i = 0; i < size; i++) {
+                    TreeNode node = queue.poll();
+                    if(node == null){
+                        continue;
+                    }
+                    list.add(String.valueOf(node.val));
+                    if(node.left != null) queue.offer(node.left);
+                    if(node.right != null) queue.offer(node.right);
+                }
+            }
+
+            return String.join(",", list);
+        }
 
     }
 
@@ -3001,7 +3023,17 @@ public class LeetcodeTests {
      **/
     @Test
     public void test_226() {
+        TreeNode root = new TreeNode(4);
+        root.left = new TreeNode(2);
+        root.left.left = new TreeNode(1);
+        root.left.right = new TreeNode(3);
 
+        root.right = new TreeNode(7);
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(9);
+
+        TreeNode treeNode = invertTree(root);
+        System.out.println(treeNode);
     }
 
 
@@ -3010,7 +3042,86 @@ public class LeetcodeTests {
             return null;
         }
         TreeNode left = root.left, right = root.right;
+        root.left = invertTree(right);
+        root.right = invertTree(left);
+        return root;
     }
+
+    /**
+     * 对称二叉树
+     * https://leetcode.cn/problems/symmetric-tree/description/?envType=study-plan-v2&envId=top-interview-150
+     **/
+    @Test
+    public void test_101() {
+//        TreeNode root = new TreeNode(4);
+//        root.left = new TreeNode(2);
+//        root.left.left = new TreeNode(1);
+//        root.left.right = new TreeNode(3);
+
+//        root.right = new TreeNode(7);
+//        root.right.left = new TreeNode(6);
+//        root.right.right = new TreeNode(9);
+
+        TreeNode root = new TreeNode(4);
+        root.left = new TreeNode(2);
+        root.left.left = new TreeNode(3);
+        root.left.right = new TreeNode(4);
+
+        root.right = new TreeNode(2);
+        root.right.left = new TreeNode(4);
+        root.right.right = new TreeNode(3);
+
+        System.out.println(isSymmetric(root));
+    }
+
+    static boolean isSymmetric(TreeNode root) {
+        //递归
+        return _isSymmetric(root.left, root.right);
+        //遍历
+
+//        Deque<TreeNode> queue = new LinkedList<>();
+//        queue.offer(root.left);
+//        queue.offer(root.right);
+//        while (!queue.isEmpty()){
+//            TreeNode n1 = queue.poll(), n2 = queue.poll();
+//            if(n1 == null && n2 == null){
+//                continue;
+//            }
+//            if((n1 == null || n2 == null) || (n1.val != n2.val)){
+//                return false;
+//            }
+//            queue.offer(n1.left);
+//            queue.offer(n2.right);
+//
+//            queue.offer(n1.right);
+//            queue.offer(n2.left);
+//        }
+//        return true;
+    }
+
+    static boolean _isSymmetric(TreeNode left, TreeNode right){
+        if(left == null && right == null){
+            return true;
+        }
+        if(left == null || right == null){
+            return false;
+        }
+        return left.val == right.val && _isSymmetric(left.left, right.right) && _isSymmetric(left.right, right.left);
+    }
+
+    /**
+     * 从前序与中序遍历序列构造二叉树
+     * https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/?envType=study-plan-v2&envId=top-interview-150
+     **/
+    @Test
+    public void test_105() {
+
+    }
+
+    static TreeNode buildTree(int[] preorder, int[] inorder) {
+
+    }
+
     /**
      * 回文链表
      * https://leetcode.cn/problems/remove-nth-node-from-end-of-list/description/?envType=study-plan-v2&envId=top-interview-150
