@@ -70,8 +70,8 @@ public class TreeNode {
             if(cur != null){
                 System.out.print(cur.val + " ");
                 //先右后左
-                stack.push(cur.right);
-                stack.push(cur.left);
+                if(cur.right != null) stack.push(cur.right);
+                if(cur.left != null) stack.push(cur.left);
             }
         }
         System.out.print(" ");
@@ -114,6 +114,38 @@ public class TreeNode {
         System.out.println(" ");
     }
 
+    public static void postOrderRecur(TreeNode root){
+        if(root == null){
+            return;
+        }
+        postOrderRecur(root.left);
+        postOrderRecur(root.right);
+        System.out.print(root.val + " ");
+    }
+
+    public static void postOrderUnRecur(TreeNode root){
+        if(root == null){
+            return;
+        }
+        Deque<TreeNode> stack1 = new LinkedList<>();
+        Deque<TreeNode> stack2 = new LinkedList<>();
+        stack1.push(root);
+        while (!stack1.isEmpty()){
+            TreeNode node = stack1.pop();
+            if(node != null){
+                stack2.push(node);
+                //先右后左
+                if(node.left != null) stack1.push(node.left);
+                if(node.right != null) stack1.push(node.right);
+            }
+        }
+        while (!stack2.isEmpty()){
+            System.out.print(stack2.pop().val + " ");
+        }
+
+        System.out.println(" ");
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(3);
         root.left = new TreeNode(9);
@@ -121,6 +153,15 @@ public class TreeNode {
         root.right.left = new TreeNode(15);
         root.right.right = new TreeNode(7);
         //递归序 3 9 9 9 3 20 15 15 15 20 7 7 7 20 3
+        /**
+         *           3
+         *     9          20
+         *           15         7
+         *
+         *
+         *
+         *
+         */
 
         //先序：第一次出现的元素顺序 3 9 20 15 7
         //中序：第二次出现时打印 9 3 15 20 7
@@ -129,6 +170,10 @@ public class TreeNode {
         preOrderRecur(root);
         System.out.println(" ");
         preOrderUnRecur(root);
+        System.out.println(" ");
+        postOrderRecur(root);
+        System.out.println(" ");
+        postOrderUnRecur(root);
     }
 
 }
