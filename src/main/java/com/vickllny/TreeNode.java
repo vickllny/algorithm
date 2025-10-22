@@ -147,11 +147,11 @@ public class TreeNode {
     }
 
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(3);
-        root.left = new TreeNode(9);
-        root.right = new TreeNode(20);
-        root.right.left = new TreeNode(15);
-        root.right.right = new TreeNode(7);
+//        TreeNode root = new TreeNode(3);
+//        root.left = new TreeNode(9);
+//        root.right = new TreeNode(20);
+//        root.right.left = new TreeNode(15);
+//        root.right.right = new TreeNode(7);
         //递归序 3 9 9 9 3 20 15 15 15 20 7 7 7 20 3
         /**
          *           3
@@ -167,13 +167,34 @@ public class TreeNode {
         //中序：第二次出现时打印 9 3 15 20 7
         //后序：第三次出现时打印顺序 9 15 7 20 3
 
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.left.right.left = new TreeNode(6);
+        root.left.right.right = new TreeNode(7);
+
+
+        root.right = new TreeNode(3);
+        root.right.left = new TreeNode(8);
+        root.right.right = new TreeNode(9);
+        root.right.right.right = new TreeNode(10);
+
+        /**
+         *                  1
+         *            2             3
+         *       4        5       8    9
+         *              6    7             10
+         */
+
         preOrderRecur(root);
         System.out.println(" ");
-        preOrderUnRecur(root);
-        System.out.println(" ");
-        postOrderRecur(root);
-        System.out.println(" ");
-        postOrderUnRecur(root);
+        inOrderRecur(root);
+//        preOrderUnRecur(root);
+//        System.out.println(" ");
+//        postOrderRecur(root);
+//        System.out.println(" ");
+//        postOrderUnRecur(root);
     }
 
 }
